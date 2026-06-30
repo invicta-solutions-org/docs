@@ -1,0 +1,3484 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Skildo — Investor Deck</title>
+
+    <!-- Keep the deck out of search engines (it's a private share link). -->
+    <meta name="robots" content="noindex, nofollow" />
+    <meta
+      name="description"
+      content="Skildo — propojujeme domácnosti a lokální řemeslníky. Investorský deck (pre-seed)."
+    />
+    <meta name="theme-color" content="#f3f1eb" />
+
+    <!-- Link preview (when pasted into Notion, Slack, e-mail, WhatsApp…). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Skildo — Investor Deck" />
+    <meta
+      property="og:description"
+      content="Vinted na řemeslníky. Propojujeme domácnosti a lokální řemeslníky — způsobem, který zjednoduší život oběma stranám."
+    />
+    <meta property="og:locale" content="cs_CZ" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <!-- Až budeš mít URL, odkomentuj a doplň (absolutní odkazy; obrázek ~1200×630):
+    <meta property="og:url" content="https://TVOJEJMENO.github.io/skildo-deck/" />
+    <meta property="og:image" content="https://TVOJEJMENO.github.io/skildo-deck/preview.png" /> -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Skildo — Investor Deck" />
+    <meta
+      name="twitter:description"
+      content="Vinted na řemeslníky. Propojujeme domácnosti a lokální řemeslníky."
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #13243a;
+        --ink-2: #27384f;
+        --ink-3: #76869b;
+        --amber: #ec6f2d;
+        --amber-d: #ec6f2d;
+        --teal: #ec6f2d;
+        --paper: #f3f1eb;
+        --paper-2: #eae7de;
+        --card: #fbfaf6;
+        --line: #d5d0c4;
+        --line-2: #c2bcad;
+        --disp: "Space Grotesk", system-ui, sans-serif;
+        --mono: "Space Mono", ui-monospace, monospace;
+        --body: "Inter", system-ui, sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      /* Fluid root: the whole (rem-based) deck scales with the display,
+         while staying at the original 16px baseline on laptops/mobile. */
+      html {
+        font-size: clamp(16px, 1.85vmin, 30px);
+      }
+      body {
+        font-family: var(--body);
+        background: var(--paper);
+        color: var(--ink);
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+      .deck {
+        display: flex;
+        flex-direction: column;
+        min-height: 100svh;
+      }
+
+      /* ---------- top bar ---------- */
+      .topbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3.3rem;
+        z-index: 40;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 clamp(1rem, 4vw, 2.4rem);
+        background: rgba(243, 241, 235, 0.86);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--line);
+      }
+      .wm {
+        font-family: var(--disp);
+        font-weight: 700;
+        font-size: 1.18rem;
+        letter-spacing: -0.01em;
+        display: flex;
+        align-items: center;
+        gap: 0.55rem;
+      }
+      .logo {
+        display: block;
+        width: auto;
+      }
+      .wm .logo-hdr {
+        height: 1.85rem;
+      }
+      .cover-wm .logo-cover {
+        height: clamp(4.5rem, 13.5vw, 11rem);
+      }
+      .vislogo {
+        margin-bottom: 1.4rem;
+      }
+      .wm .mk {
+        width: 0.5rem;
+        height: 0.5rem;
+        background: var(--amber);
+        display: inline-block;
+        transform: rotate(45deg);
+      }
+      .wm .deckt {
+        font-family: var(--mono);
+        font-weight: 700;
+        font-size: 0.56rem;
+        letter-spacing: 0.18em;
+        color: var(--ink-3);
+        margin-left: 0.35rem;
+        text-transform: uppercase;
+      }
+      .langs {
+        display: flex;
+        gap: 0.15rem;
+        font-family: var(--mono);
+        font-size: 0.62rem;
+      }
+      .langs button {
+        border: 1px solid var(--line-2);
+        background: transparent;
+        color: var(--ink-3);
+        padding: 0.28rem 0.5rem;
+        cursor: pointer;
+        font-family: var(--mono);
+        font-weight: 700;
+        letter-spacing: 0.06em;
+      }
+      .langs button.on {
+        background: var(--ink);
+        color: #fff;
+        border-color: var(--ink);
+      }
+      .prog {
+        position: fixed;
+        top: 3.3rem;
+        left: 0;
+        height: 2px;
+        background: #8c62f4;
+        z-index: 40;
+        transition: width 0.35s ease;
+        width: 7%;
+      }
+
+      /* ---------- stage / slides ---------- */
+      #stage {
+        flex: 1 1 auto;
+        position: relative;
+      }
+      .slide {
+        display: none;
+        min-height: 100svh;
+        padding: 5.1rem clamp(1.2rem, 5.5vw, 4.6rem) 4.8rem;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+      }
+      .slide.active {
+        display: flex;
+        animation: fade 0.4s ease;
+      }
+      @keyframes fade {
+        from {
+          opacity: 0;
+          transform: translateY(6px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .inner {
+        width: 100%;
+        max-width: 68rem;
+        margin: 0 auto;
+      }
+
+      /* sheet header */
+      .khead {
+        display: flex;
+        align-items: center;
+        gap: 0.55rem;
+        border-top: 1.5px solid var(--ink);
+        padding-top: 0.55rem;
+        margin-bottom: 1.4rem;
+      }
+      .tick {
+        width: 0.46rem;
+        height: 0.46rem;
+        background: var(--amber);
+        transform: rotate(45deg);
+        flex: 0 0 auto;
+      }
+      .kicker {
+        font-family: var(--mono);
+        font-weight: 700;
+        font-size: 0.66rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--ink-2);
+      }
+      .kn {
+        margin-left: auto;
+        font-family: var(--mono);
+        font-size: 0.66rem;
+        color: var(--ink-3);
+        letter-spacing: 0.12em;
+      }
+
+      .display {
+        font-family: var(--disp);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1.04;
+        font-size: clamp(1.9rem, 4.6vw, 4.6rem);
+        margin: 0 0 1rem;
+      }
+      .sub {
+        font-size: clamp(1rem, 1.7vw, 1.6rem);
+        line-height: 1.5;
+        color: var(--ink-2);
+        max-width: 46ch;
+        margin: 0;
+      }
+      .sub.wide {
+        max-width: 60ch;
+      }
+      .note {
+        font-family: var(--mono);
+        font-size: 0.66rem;
+        color: var(--ink-3);
+        line-height: 1.5;
+        margin-top: 1.1rem;
+        letter-spacing: 0.01em;
+      }
+      em {
+        font-style: normal;
+        color: var(--amber-d);
+        font-weight: 600;
+      }
+      .tealw {
+        color: var(--teal);
+        font-weight: 600;
+      }
+
+      /* layout helpers */
+      .two {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.3rem;
+        margin-top: 1.5rem;
+      }
+      .three {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+      .row-sub {
+        margin-bottom: 1.3rem;
+      }
+
+      /* cards */
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 3px;
+        padding: 1.05rem 1.15rem;
+      }
+      .card h4 {
+        font-family: var(--disp);
+        font-weight: 600;
+        font-size: 1.02rem;
+        margin: 0.1rem 0 0.45rem;
+      }
+      .card p {
+        margin: 0;
+        font-size: 0.93rem;
+        line-height: 1.5;
+        color: var(--ink-2);
+      }
+      .card .lab {
+        font-family: var(--mono);
+        font-size: 0.6rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--ink-3);
+      }
+      .card.ambertop {
+        border-top: 3px solid var(--amber);
+      }
+      .card.tealtop {
+        border-top: 3px solid var(--teal);
+      }
+      .card.dash {
+        background: transparent;
+        border: 1.5px dashed var(--line-2);
+      }
+      .card.dash p {
+        color: var(--ink-3);
+      }
+
+      /* group label */
+      .grp {
+        font-family: var(--mono);
+        font-size: 0.62rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--ink-3);
+        margin: 0 0 0.55rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .grp::before {
+        content: "";
+        width: 1.1rem;
+        height: 1px;
+        background: var(--line-2);
+      }
+      .catlist {
+        list-style: none;
+        margin: 0.3rem 0 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .catlist li {
+        position: relative;
+        padding-left: 1.05rem;
+      }
+      .catlist li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.34rem;
+        width: 0.42rem;
+        height: 0.42rem;
+        background: var(--amber);
+        transform: rotate(45deg);
+      }
+      .catlist.teal li::before {
+        background: var(--teal);
+      }
+      .catlist .ct {
+        display: block;
+        font-family: var(--disp);
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: var(--ink);
+      }
+      .catlist .cd {
+        display: block;
+        font-size: 0.79rem;
+        line-height: 1.3;
+        color: var(--ink-3);
+        margin-top: 0.1rem;
+      }
+
+      /* stat tiles */
+      .tiles {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.9rem;
+        margin-top: 1.5rem;
+      }
+      .tiles.t3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .tile {
+        border: 1px solid var(--line);
+        border-radius: 3px;
+        padding: 0.9rem 1rem;
+        background: var(--card);
+      }
+      .tile .v {
+        font-family: var(--mono);
+        font-weight: 700;
+        font-size: 1.7rem;
+        line-height: 1;
+        color: var(--ink);
+      }
+      .tile .v.am {
+        color: var(--amber-d);
+      }
+      .tile .v.tl {
+        color: var(--teal);
+      }
+      .tile .l {
+        font-size: 0.78rem;
+        color: var(--ink-3);
+        margin-top: 0.4rem;
+        line-height: 1.35;
+      }
+
+      /* flow strip */
+      .flow {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.7rem;
+        margin-top: 1.5rem;
+      }
+      .flow.f3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .step {
+        border: 1px solid var(--line);
+        border-left: 3px solid var(--amber);
+        border-radius: 3px;
+        padding: 0.85rem 0.9rem;
+        background: var(--card);
+      }
+      .step .sn {
+        font-family: var(--mono);
+        font-size: 0.6rem;
+        letter-spacing: 0.12em;
+        color: var(--amber-d);
+        font-weight: 700;
+      }
+      .step h4 {
+        font-family: var(--disp);
+        font-weight: 600;
+        font-size: 0.98rem;
+        margin: 0.35rem 0 0.3rem;
+      }
+      .step p {
+        margin: 0;
+        font-size: 0.82rem;
+        line-height: 1.4;
+        color: var(--ink-2);
+      }
+
+      /* bars (take rate) */
+      .bars {
+        margin-top: 1.4rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+        max-width: 40rem;
+      }
+      .bar {
+        display: grid;
+        grid-template-columns: 11rem 1fr auto;
+        align-items: center;
+        gap: 0.8rem;
+      }
+      .bar .bl {
+        font-size: 0.86rem;
+        color: var(--ink-2);
+      }
+      .bar .track {
+        height: 0.85rem;
+        background: var(--paper-2);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .bar .track i {
+        display: block;
+        height: 100%;
+        background: var(--ink-3);
+        border-radius: 2px;
+      }
+      .bar .track i.hot {
+        background: var(--amber);
+      }
+      .bar .bv {
+        font-family: var(--mono);
+        font-weight: 700;
+        font-size: 0.82rem;
+        color: var(--ink);
+      }
+
+      /* funnel */
+      .funnel {
+        margin-top: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.55rem;
+        max-width: 42.5rem;
+      }
+      .fr {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.7rem 1rem;
+        background: var(--ink);
+        color: #fff;
+        border-radius: 3px;
+      }
+      .fr:nth-child(2) {
+        background: var(--ink-2);
+      }
+      .fr.hot {
+        background: var(--amber);
+        color: var(--ink);
+      }
+      .fr .fl {
+        font-family: var(--disp);
+        font-weight: 600;
+        font-size: 0.98rem;
+      }
+      .fr .fv {
+        font-family: var(--mono);
+        font-weight: 700;
+        font-size: 0.92rem;
+      }
+
+      /* ramp */
+      .ramp {
+        margin-top: 1.4rem;
+        display: flex;
+        align-items: flex-end;
+        gap: 1.1rem;
+        height: 200px;
+        border-bottom: 1.5px solid var(--ink);
+        max-width: 40rem;
+        padding-bottom: 0;
+      }
+      .yr {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+        justify-content: flex-end;
+      }
+      .yr .cols {
+        display: flex;
+        align-items: flex-end;
+        gap: 0.28rem;
+        height: 100%;
+        width: 100%;
+        justify-content: center;
+      }
+      .yr .cols i {
+        width: 34%;
+        display: block;
+        border-radius: 2px 2px 0 0;
+        min-height: 2px;
+      }
+      .yr .cols i.g {
+        background: var(--ink);
+      }
+      .yr .cols i.r {
+        background: var(--amber);
+      }
+      .yr .gv {
+        font-family: var(--mono);
+        font-size: 0.62rem;
+        color: var(--ink);
+        font-weight: 700;
+        margin-bottom: 0.2rem;
+      }
+      .rampx {
+        display: flex;
+        gap: 1.1rem;
+        max-width: 40rem;
+        margin-top: 0.4rem;
+      }
+      .rampx .yx {
+        flex: 1;
+        text-align: center;
+      }
+      .rampx .yl {
+        font-family: var(--mono);
+        font-size: 0.66rem;
+        color: var(--ink-3);
+        font-weight: 700;
+      }
+      .rampx .rv {
+        font-family: var(--mono);
+        font-size: 0.6rem;
+        color: var(--amber-d);
+        font-weight: 700;
+        margin-top: 0.15rem;
+      }
+      .legend {
+        display: flex;
+        gap: 1.2rem;
+        margin-top: 0.9rem;
+        font-family: var(--mono);
+        font-size: 0.62rem;
+        color: var(--ink-3);
+      }
+      .legend span {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+      .legend i {
+        width: 0.7rem;
+        height: 0.7rem;
+        border-radius: 2px;
+        display: inline-block;
+      }
+      .legend i.g {
+        background: var(--ink);
+      }
+      .legend i.r {
+        background: var(--amber);
+      }
+      .chartwrap {
+        margin-top: 1.3rem;
+        max-width: none;
+      }
+      .chartwrap svg {
+        width: 100%;
+        height: auto;
+        display: block;
+        overflow: visible;
+      }
+      .expmap {
+        max-width: 53.75rem;
+        margin: 1.2rem 0 0.3rem;
+      }
+      .expmap svg {
+        width: 100%;
+        height: auto;
+        display: block;
+        overflow: visible;
+      }
+      .callout {
+        margin-top: 1.2rem;
+        max-width: none;
+      }
+      .phaserow {
+        display: flex;
+        max-width: 40rem;
+        margin-top: 0.55rem;
+        gap: 0.45rem;
+      }
+      .phaserow .ph {
+        font-family: var(--mono);
+        font-size: 0.6rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        border-top: 2px solid;
+        padding-top: 0.32rem;
+        line-height: 1.3;
+      }
+      .phaserow .p1 {
+        flex: 2;
+        border-color: var(--ink-3);
+        color: var(--ink-3);
+      }
+      .phaserow .p2 {
+        flex: 3;
+        border-color: var(--amber);
+        color: var(--amber-d);
+      }
+      .ramp2 {
+        display: flex;
+        max-width: none;
+        margin-top: 0.8rem;
+        align-items: stretch;
+      }
+      .ramp2 .rcol {
+        flex: 1 1 0;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+      }
+      .ramp2 .lbl {
+        flex: 0 0 7.5rem;
+      }
+      .ramp2 .barcell {
+        height: 104px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        border-bottom: 1.5px solid var(--ink);
+      }
+      .ramp2 .lbl .barcell {
+        border-bottom: 0;
+      }
+      .ramp2 .bar {
+        width: 55%;
+        background: var(--ink);
+        border-radius: 2px 2px 0 0;
+        min-height: 3px;
+      }
+      .ramp2 .v {
+        height: 1.55rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: var(--ink-2);
+      }
+      .ramp2 .lbl .v {
+        justify-content: flex-end;
+        padding-right: 0.55rem;
+        font-size: 0.6rem;
+        color: var(--ink-3);
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+      }
+      .ramp2 .v.gmvc {
+        color: var(--ink);
+      }
+      .ramp2 .v.revc {
+        color: var(--amber-d);
+      }
+      .ramp2 .v.gmvpct {
+        font-size: 0.6rem;
+        font-weight: 600;
+        color: var(--ink-3);
+      }
+      .ramp2 .v.trc {
+        color: var(--teal);
+      }
+      .phase2 {
+        display: flex;
+        max-width: 37.5rem;
+        margin-top: 0.1rem;
+      }
+      .phase2 .pspacer {
+        flex: 0 0 7.5rem;
+      }
+      .phase2 .ph {
+        font-family: var(--mono);
+        font-size: 0.58rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        border-top: 2px solid;
+        padding-top: 0.3rem;
+        line-height: 1.3;
+      }
+      .phase2 .p1 {
+        flex: 2 1 0;
+        border-color: var(--ink-3);
+        color: var(--ink-3);
+      }
+      .phase2 .p2 {
+        flex: 3 1 0;
+        border-color: var(--amber);
+        color: var(--amber-d);
+      }
+      .rampnote {
+        font-family: var(--mono);
+        font-size: 0.62rem;
+        color: var(--ink-3);
+        line-height: 1.5;
+        margin-top: 0.5rem;
+        max-width: 36.25rem;
+      }
+
+      /* problem list (slide 2) */
+      .problist {
+        list-style: none;
+        margin: 1.4rem 0 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.65rem;
+        max-width: 55rem;
+      }
+      .problist li {
+        display: flex;
+        align-items: baseline;
+        gap: 0.85rem;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 0.6rem;
+      }
+      .problist li:last-child {
+        border-bottom: 0;
+      }
+      .problist .pn {
+        font-family: var(--mono);
+        font-weight: 700;
+        font-size: 0.78rem;
+        color: var(--amber-d);
+        flex: 0 0 auto;
+        min-width: 1.2rem;
+      }
+      .problist .pt {
+        font-family: var(--disp);
+        font-weight: 600;
+        font-size: 1.02rem;
+        color: var(--ink);
+        flex: 0 0 auto;
+      }
+      .problist .pd {
+        font-size: 0.9rem;
+        color: var(--ink-3);
+        line-height: 1.4;
+        margin-left: auto;
+        text-align: right;
+        max-width: 46ch;
+      }
+      .sowhat {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.1rem;
+        margin-top: 1.5rem;
+      }
+      .sowhat .sw {
+        border-radius: 3px;
+        padding: 0.95rem 1.1rem;
+        background: var(--card);
+        border: 1px solid var(--line);
+      }
+      .sowhat .sw.h {
+        border-top: 3px solid var(--amber);
+      }
+      .sowhat .sw.t {
+        border-top: 3px solid var(--teal);
+      }
+      .sowhat .swl {
+        font-family: var(--mono);
+        font-size: 0.6rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--ink-3);
+        margin-bottom: 0.35rem;
+      }
+      .sowhat .sw p {
+        margin: 0;
+        font-size: 0.96rem;
+        line-height: 1.45;
+        color: var(--ink-2);
+      }
+      @media (max-width: 760px) {
+        .problist li {
+          flex-wrap: wrap;
+          gap: 0.4rem;
+        }
+        .problist .pd {
+          margin-left: 0;
+          text-align: left;
+          max-width: none;
+        }
+        .sowhat {
+          grid-template-columns: 1fr;
+        }
+      }
+      .problist.solved .pn {
+        color: var(--teal);
+      }
+
+      /* problem split — questions per side (slide 2) */
+      .qlist {
+        list-style: none;
+        margin: 0.45rem 0 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .qlist li {
+        position: relative;
+        padding-left: 1.05rem;
+        font-family: var(--disp);
+        font-weight: 500;
+        font-size: 0.91rem;
+        line-height: 1.32;
+        color: var(--ink-2);
+      }
+      .qlist li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.42rem;
+        width: 0.4rem;
+        height: 0.4rem;
+        background: var(--amber);
+        transform: rotate(45deg);
+      }
+      .qlist.teal li::before {
+        background: var(--teal);
+      }
+      @media (max-width: 520px) {
+        .probsplit {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* prague gates */
+      .gates {
+        list-style: none;
+        margin: 1.15rem 0 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.62rem;
+        max-width: 63rem;
+      }
+      .gates li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.9rem;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 0.58rem;
+      }
+      .gates li:last-child {
+        border-bottom: 0;
+      }
+      .gates .gn {
+        font-family: var(--mono);
+        font-weight: 700;
+        font-size: 0.76rem;
+        color: var(--teal);
+        flex: 0 0 auto;
+        min-width: 1.1rem;
+        padding-top: 0.22rem;
+      }
+      .gates .gmid {
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+      .gates .gt {
+        font-family: var(--disp);
+        font-weight: 600;
+        font-size: 1rem;
+        color: var(--ink);
+        line-height: 1.2;
+      }
+      .gates .gw {
+        font-size: 0.84rem;
+        color: var(--ink-3);
+        line-height: 1.38;
+        margin-top: 0.12rem;
+      }
+      .gates .gv {
+        flex: 0 0 auto;
+        font-family: var(--mono);
+        font-weight: 700;
+        font-size: 0.82rem;
+        color: var(--amber-d);
+        text-align: right;
+        max-width: 36%;
+        line-height: 1.3;
+        padding-top: 0.22rem;
+      }
+      @media (max-width: 760px) {
+        .gates li {
+          flex-wrap: wrap;
+          gap: 0.3rem;
+        }
+        .gates .gv {
+          margin-left: 2rem;
+          text-align: left;
+          max-width: none;
+        }
+      }
+
+      /* journey (step + benefit per side) */
+      .journey {
+        list-style: none;
+        margin: 1.05rem 0 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      .journey li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.9rem;
+        border-bottom: 1px solid var(--line);
+        padding: 0.46rem 0;
+      }
+      .journey li:last-child {
+        border-bottom: 0;
+      }
+      .journey .jn {
+        font-family: var(--mono);
+        font-weight: 700;
+        font-size: 0.72rem;
+        color: var(--ink-3);
+        flex: 0 0 auto;
+        min-width: 1.05rem;
+        padding-top: 0.3rem;
+      }
+      .journey .jmid {
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+      .journey .jt {
+        font-family: var(--disp);
+        font-weight: 600;
+        font-size: 0.96rem;
+        color: var(--ink);
+        line-height: 1.2;
+      }
+      .journey .jd {
+        font-size: 0.8rem;
+        color: var(--ink-3);
+        line-height: 1.35;
+        margin-top: 0.05rem;
+      }
+      .journey .jben {
+        flex: 0 0 auto;
+        max-width: 40%;
+        text-align: right;
+        padding-top: 0.18rem;
+      }
+      .journey .tag {
+        display: inline-block;
+        font-family: var(--mono);
+        font-size: 0.55rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 0.1rem 0.4rem;
+        border: 1px solid currentColor;
+        border-radius: 2px;
+        margin-bottom: 0.22rem;
+      }
+      .journey .tag.cust {
+        color: var(--amber-d);
+      }
+      .journey .tag.pro {
+        color: var(--teal);
+      }
+      .journey .tag.both {
+        color: var(--ink-3);
+      }
+      .journey .jbt {
+        font-size: 0.8rem;
+        color: var(--ink-2);
+        line-height: 1.35;
+      }
+      @media (max-width: 760px) {
+        .journey li {
+          flex-wrap: wrap;
+          gap: 0.3rem;
+        }
+        .journey .jben {
+          max-width: none;
+          text-align: left;
+          padding-left: 2rem;
+        }
+      }
+
+      /* sources */
+      .srclist {
+        list-style: none;
+        margin: 1.2rem 0 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.55rem 1.6rem;
+        max-width: 62.5rem;
+      }
+      .srclist li {
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        line-height: 1.45;
+        color: var(--ink-2);
+        padding-left: 1rem;
+        position: relative;
+      }
+      .srclist li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.4rem;
+        width: 0.36rem;
+        height: 0.36rem;
+        background: var(--amber);
+        transform: rotate(45deg);
+      }
+      .srclist .st {
+        color: var(--ink);
+        font-weight: 700;
+      }
+      .srclist .su {
+        color: var(--ink-3);
+        display: block;
+        font-size: 0.62rem;
+        margin-top: 0.05rem;
+        word-break: break-all;
+      }
+      @media (max-width: 760px) {
+        .srclist {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* chips */
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1.4rem;
+      }
+      .chip {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        font-weight: 700;
+        padding: 0.4rem 0.7rem;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 2px;
+        color: var(--ink-2);
+      }
+      .chip .ar {
+        color: var(--ink-3);
+        margin-left: 0.45rem;
+      }
+
+      /* punch band */
+      .punch {
+        margin-top: 1.5rem;
+        border-left: 3px solid var(--teal);
+        padding: 0.2rem 0 0.2rem 1.1rem;
+      }
+      .punch p {
+        margin: 0;
+        font-size: 1.04rem;
+        line-height: 1.45;
+        color: var(--ink);
+      }
+
+      /* ---------- dark slides ---------- */
+      .slide.dark {
+        background: var(--ink);
+        color: #fff;
+      }
+      .slide.dark .khead {
+        border-top-color: rgba(255, 255, 255, 0.4);
+      }
+      .slide.dark .kicker {
+        color: #c7d2e0;
+      }
+      .slide.dark .kn {
+        color: #7e90a8;
+      }
+      .slide.dark .display {
+        color: #fff;
+      }
+      .slide.dark .sub {
+        color: #c7d2e0;
+      }
+      .slide.dark .note {
+        color: #7e90a8;
+      }
+      .slide.dark em {
+        color: var(--amber);
+      }
+      .slide.dark .step h4 {
+        color: var(--ink);
+      }
+      .slide.dark .card h4 {
+        color: var(--ink);
+      }
+      .slide.dark .punch p {
+        color: #fff;
+      }
+
+      /* cover */
+      .cover-wm {
+        font-family: var(--disp);
+        font-weight: 700;
+        font-size: clamp(3rem, 9vw, 8rem);
+        letter-spacing: -0.03em;
+        line-height: 0.95;
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+      }
+      .cover-wm .mk {
+        width: clamp(0.9rem, 2.4vw, 2rem);
+        height: clamp(0.9rem, 2.4vw, 2rem);
+        background: var(--amber);
+        transform: rotate(45deg);
+        display: inline-block;
+      }
+      .cover-tag {
+        display: inline-block;
+        font-family: var(--mono);
+        font-weight: 700;
+        font-size: 0.72rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--amber-d);
+        background: var(--card);
+        border: 1.5px solid var(--amber-d);
+        border-radius: 999px;
+        padding: 0.42rem 0.85rem;
+        margin-bottom: 1.5rem;
+      }
+      .cover-line {
+        font-size: clamp(1.05rem, 2vw, 1.9rem);
+        line-height: 1.45;
+        color: var(--ink-2);
+        max-width: 42ch;
+        margin: 1.4rem 0 0;
+      }
+      .cover-foot {
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        letter-spacing: 0.1em;
+        color: var(--ink-3);
+        margin-top: 2.4rem;
+        border-top: 1px solid var(--line);
+        padding-top: 0.9rem;
+      }
+      .vis-close {
+        font-family: var(--disp);
+        font-size: clamp(1.1rem, 2vw, 1.9rem);
+        color: var(--ink);
+        margin-top: 1.6rem;
+        line-height: 1.4;
+        max-width: 40ch;
+      }
+
+      /* ---------- nav ---------- */
+      .nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3.2rem;
+        z-index: 40;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        padding: 0 clamp(1rem, 4vw, 2.4rem);
+        background: rgba(243, 241, 235, 0.86);
+        backdrop-filter: blur(8px);
+        border-top: 1px solid var(--line);
+      }
+      .nav button.arrow {
+        border: 1px solid var(--line-2);
+        background: var(--card);
+        color: var(--ink);
+        width: 2rem;
+        height: 2rem;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 1rem;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .nav button.arrow:hover {
+        border-color: var(--ink);
+        color: var(--ink);
+      }
+      #dots {
+        display: flex;
+        gap: 0.4rem;
+        align-items: center;
+      }
+      .dot {
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+        background: var(--line-2);
+      }
+      .dot.on {
+        background: var(--amber);
+        transform: scale(1.25);
+      }
+      #counter {
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        font-weight: 700;
+        color: var(--ink-3);
+        letter-spacing: 0.1em;
+        min-width: 4.5rem;
+        text-align: right;
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--amber);
+        outline-offset: 2px;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition: none !important;
+          animation: none !important;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .two,
+        .three,
+        .flow,
+        .flow.f3,
+        .tiles,
+        .tiles.t3 {
+          grid-template-columns: 1fr 1fr;
+        }
+        .bar {
+          grid-template-columns: 8rem 1fr auto;
+        }
+        .kn {
+          display: none;
+        }
+      }
+      @media (max-width: 520px) {
+        .three,
+        .flow,
+        .flow.f3,
+        .tiles,
+        .tiles.t3 {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* ---------- print: all slides, one per page ---------- */
+      @media print {
+        .topbar,
+        .nav,
+        .prog {
+          display: none !important;
+        }
+        body {
+          background: #fff;
+        }
+        .slide {
+          display: flex !important;
+          min-height: auto;
+          height: 100vh;
+          page-break-after: always;
+          padding: 2.2rem 2.4rem;
+        }
+        .slide.dark {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="deck">
+      <header class="topbar">
+        <div class="wm">
+          <svg
+            class="logo logo-hdr"
+            aria-label="Skildo"
+            role="img"
+            viewBox="0 0 732 300"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M59.4282 72.48C59.3435 72.7623 59.3153 80.6115 59.4 89.9853L59.5694 106.982H51.0443L51.0161 95.6604C50.9879 89.4206 50.9032 83.0961 50.7903 81.5997L50.5927 78.8892L48.5038 79.7362C47.3746 80.188 45.2575 81.2327 43.8178 82.0515C29.0261 90.5782 19.1461 105.542 17.6782 121.749L17.4806 123.895H15.3634C11.609 123.895 10 125.278 10 128.497C10 130.643 10.5363 131.631 12.2583 132.648C13.2463 133.24 13.7826 133.24 70.0139 133.24H126.782L127.826 132.591C129.266 131.688 130 130.276 130 128.469C130.028 125.363 128.278 123.895 124.636 123.895H122.491V122.031C122.491 115.622 119.16 105.881 114.559 98.8509C109.562 91.2276 101.63 84.0279 94.601 80.7809C92.3145 79.7362 89.9151 78.9739 89.661 79.228C89.6046 79.3127 89.407 85.496 89.2658 92.9782C89.1247 100.432 89.0118 106.644 88.9835 106.785C88.9835 106.898 87.0922 106.982 84.8057 106.926L80.6279 106.841L80.6561 102.55C80.6561 100.178 80.769 92.6958 80.8819 85.8913C81.0513 74.6258 81.0231 73.4682 80.5714 72.7623L80.0916 72H69.8446C60.7267 72 59.5976 72.0565 59.4282 72.48Z"
+              fill="url(#p0_hdr)"
+            />
+            <path
+              d="M21.9689 144.732C20.3881 145.805 20.1058 147.047 20.501 151.423C20.9245 156.28 21.7431 160.148 23.3521 165.061C24.8482 169.635 28.3768 177.088 31.3126 181.86C37.4382 191.827 53.3873 211.647 66.316 225.369C69.1389 228.334 69.9293 228.588 71.4536 227.148C72.6957 225.962 86.1325 210.405 92.4274 202.895C106.852 185.615 111.933 177.484 116.224 164.609C118.567 157.607 119.894 148.289 118.821 146.228C117.89 144.421 117.466 144.337 105.469 144.337H94.6293L92.7097 146.087L92.4839 150.774C92.2863 155.913 91.7782 158.143 90.1691 161.447C86.2736 169.38 77.5227 174.378 68.3767 173.898C64.6505 173.7 62.5616 173.164 59.2024 171.498C51.1008 167.517 46.923 160.204 46.8947 150.04C46.8947 147.132 46.7818 146.256 46.3866 145.635C45.3986 144.139 44.8058 144.054 33.4579 144.054C23.0134 144.054 22.9569 144.054 21.9689 144.732Z"
+              fill="url(#p1_hdr)"
+            />
+            <path
+              d="M229.6 221.4C220.4 221.4 212.133 219.8 204.8 216.6C197.6 213.267 191.933 208.733 187.8 203C183.667 197.133 181.533 190.4 181.4 182.8H200.8C201.467 189.333 204.133 194.867 208.8 199.4C213.6 203.8 220.533 206 229.6 206C238.267 206 245.067 203.867 250 199.6C255.067 195.2 257.6 189.6 257.6 182.8C257.6 177.467 256.133 173.133 253.2 169.8C250.267 166.467 246.6 163.933 242.2 162.2C237.8 160.467 231.867 158.6 224.4 156.6C215.2 154.2 207.8 151.8 202.2 149.4C196.733 147 192 143.267 188 138.2C184.133 133 182.2 126.067 182.2 117.4C182.2 109.8 184.133 103.067 188 97.2C191.867 91.3333 197.267 86.8 204.2 83.6C211.267 80.4 219.333 78.8 228.4 78.8C241.467 78.8 252.133 82.0667 260.4 88.6C268.8 95.1333 273.533 103.8 274.6 114.6H254.6C253.933 109.267 251.133 104.6 246.2 100.6C241.267 96.4667 234.733 94.4 226.6 94.4C219 94.4 212.8 96.4 208 100.4C203.2 104.267 200.8 109.733 200.8 116.8C200.8 121.867 202.2 126 205 129.2C207.933 132.4 211.467 134.867 215.6 136.6C219.867 138.2 225.8 140.067 233.4 142.2C242.6 144.733 250 147.267 255.6 149.8C261.2 152.2 266 156 270 161.2C274 166.267 276 173.2 276 182C276 188.8 274.2 195.2 270.6 201.2C267 207.2 261.667 212.067 254.6 215.8C247.533 219.533 239.2 221.4 229.6 221.4ZM357.983 220L314.983 171.6V220H296.783V72H314.983V159L357.183 110.4H382.583L330.983 165L382.783 220H357.983ZM403.113 92.6C399.646 92.6 396.713 91.4 394.313 89C391.913 86.6 390.713 83.6667 390.713 80.2C390.713 76.7333 391.913 73.8 394.313 71.4C396.713 69 399.646 67.8 403.113 67.8C406.446 67.8 409.246 69 411.513 71.4C413.913 73.8 415.113 76.7333 415.113 80.2C415.113 83.6667 413.913 86.6 411.513 89C409.246 91.4 406.446 92.6 403.113 92.6ZM411.913 110.4V220H393.713V110.4H411.913ZM455.131 72V220H436.931V72H455.131ZM473.35 164.8C473.35 153.6 475.617 143.8 480.15 135.4C484.683 126.867 490.883 120.267 498.75 115.6C506.75 110.933 515.683 108.6 525.55 108.6C534.083 108.6 542.017 110.6 549.35 114.6C556.683 118.467 562.283 123.6 566.15 130V72H584.55V220H566.15V199.4C562.55 205.933 557.217 211.333 550.15 215.6C543.083 219.733 534.817 221.8 525.35 221.8C515.617 221.8 506.75 219.4 498.75 214.6C490.883 209.8 484.683 203.067 480.15 194.4C475.617 185.733 473.35 175.867 473.35 164.8ZM566.15 165C566.15 156.733 564.483 149.533 561.15 143.4C557.817 137.267 553.283 132.6 547.55 129.4C541.95 126.067 535.75 124.4 528.95 124.4C522.15 124.4 515.95 126 510.35 129.2C504.75 132.4 500.283 137.067 496.95 143.2C493.617 149.333 491.95 156.533 491.95 164.8C491.95 173.2 493.617 180.533 496.95 186.8C500.283 192.933 504.75 197.667 510.35 201C515.95 204.2 522.15 205.8 528.95 205.8C535.75 205.8 541.95 204.2 547.55 201C553.283 197.667 557.817 192.933 561.15 186.8C564.483 180.533 566.15 173.267 566.15 165ZM657.106 221.8C646.84 221.8 637.506 219.467 629.106 214.8C620.84 210.133 614.306 203.533 609.506 195C604.84 186.333 602.506 176.333 602.506 165C602.506 153.8 604.906 143.933 609.706 135.4C614.64 126.733 621.306 120.133 629.706 115.6C638.106 110.933 647.506 108.6 657.906 108.6C668.306 108.6 677.706 110.933 686.106 115.6C694.506 120.133 701.106 126.667 705.906 135.2C710.84 143.733 713.306 153.667 713.306 165C713.306 176.333 710.773 186.333 705.706 195C700.773 203.533 694.04 210.133 685.506 214.8C676.973 219.467 667.506 221.8 657.106 221.8ZM657.106 205.8C663.64 205.8 669.773 204.267 675.506 201.2C681.24 198.133 685.84 193.533 689.306 187.4C692.906 181.267 694.706 173.8 694.706 165C694.706 156.2 692.973 148.733 689.506 142.6C686.04 136.467 681.506 131.933 675.906 129C670.306 125.933 664.24 124.4 657.706 124.4C651.04 124.4 644.906 125.933 639.306 129C633.84 131.933 629.44 136.467 626.106 142.6C622.773 148.733 621.106 156.2 621.106 165C621.106 173.933 622.706 181.467 625.906 187.6C629.24 193.733 633.64 198.333 639.106 201.4C644.573 204.333 650.573 205.8 657.106 205.8Z"
+              fill="black"
+            />
+            <defs>
+              <linearGradient
+                id="p0_hdr"
+                x1="130"
+                y1="72"
+                x2="-11.8453"
+                y2="204.677"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stop-color="#BF6BFF" />
+                <stop offset="0.5" stop-color="#7F5AF5" />
+                <stop offset="1" stop-color="#667EEA" />
+              </linearGradient>
+              <linearGradient
+                id="p1_hdr"
+                x1="130"
+                y1="72"
+                x2="-11.8453"
+                y2="204.677"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stop-color="#BF6BFF" />
+                <stop offset="0.5" stop-color="#7F5AF5" />
+                <stop offset="1" stop-color="#667EEA" />
+              </linearGradient>
+            </defs></svg
+          ><span class="deckt">Investor Deck</span>
+        </div>
+        <div class="langs">
+          <button id="btn-en">EN</button>
+          <button id="btn-cs" class="on">CS</button>
+        </div>
+      </header>
+      <div class="prog" id="prog"></div>
+
+      <main id="stage">
+        <!-- 01 COVER -->
+        <section class="slide active">
+          <div class="inner">
+            <div class="cover-tag">
+              <span
+                data-en="Vinted for tradespeople"
+                data-cs="Vinted na řemeslníky"
+                >Vinted for tradespeople</span
+              >
+            </div>
+            <div class="cover-wm">
+              <svg
+                class="logo logo-cover"
+                aria-label="Skildo"
+                role="img"
+                viewBox="0 0 732 300"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M59.4282 72.48C59.3435 72.7623 59.3153 80.6115 59.4 89.9853L59.5694 106.982H51.0443L51.0161 95.6604C50.9879 89.4206 50.9032 83.0961 50.7903 81.5997L50.5927 78.8892L48.5038 79.7362C47.3746 80.188 45.2575 81.2327 43.8178 82.0515C29.0261 90.5782 19.1461 105.542 17.6782 121.749L17.4806 123.895H15.3634C11.609 123.895 10 125.278 10 128.497C10 130.643 10.5363 131.631 12.2583 132.648C13.2463 133.24 13.7826 133.24 70.0139 133.24H126.782L127.826 132.591C129.266 131.688 130 130.276 130 128.469C130.028 125.363 128.278 123.895 124.636 123.895H122.491V122.031C122.491 115.622 119.16 105.881 114.559 98.8509C109.562 91.2276 101.63 84.0279 94.601 80.7809C92.3145 79.7362 89.9151 78.9739 89.661 79.228C89.6046 79.3127 89.407 85.496 89.2658 92.9782C89.1247 100.432 89.0118 106.644 88.9835 106.785C88.9835 106.898 87.0922 106.982 84.8057 106.926L80.6279 106.841L80.6561 102.55C80.6561 100.178 80.769 92.6958 80.8819 85.8913C81.0513 74.6258 81.0231 73.4682 80.5714 72.7623L80.0916 72H69.8446C60.7267 72 59.5976 72.0565 59.4282 72.48Z"
+                  fill="url(#p0_cov)"
+                />
+                <path
+                  d="M21.9689 144.732C20.3881 145.805 20.1058 147.047 20.501 151.423C20.9245 156.28 21.7431 160.148 23.3521 165.061C24.8482 169.635 28.3768 177.088 31.3126 181.86C37.4382 191.827 53.3873 211.647 66.316 225.369C69.1389 228.334 69.9293 228.588 71.4536 227.148C72.6957 225.962 86.1325 210.405 92.4274 202.895C106.852 185.615 111.933 177.484 116.224 164.609C118.567 157.607 119.894 148.289 118.821 146.228C117.89 144.421 117.466 144.337 105.469 144.337H94.6293L92.7097 146.087L92.4839 150.774C92.2863 155.913 91.7782 158.143 90.1691 161.447C86.2736 169.38 77.5227 174.378 68.3767 173.898C64.6505 173.7 62.5616 173.164 59.2024 171.498C51.1008 167.517 46.923 160.204 46.8947 150.04C46.8947 147.132 46.7818 146.256 46.3866 145.635C45.3986 144.139 44.8058 144.054 33.4579 144.054C23.0134 144.054 22.9569 144.054 21.9689 144.732Z"
+                  fill="url(#p1_cov)"
+                />
+                <path
+                  d="M229.6 221.4C220.4 221.4 212.133 219.8 204.8 216.6C197.6 213.267 191.933 208.733 187.8 203C183.667 197.133 181.533 190.4 181.4 182.8H200.8C201.467 189.333 204.133 194.867 208.8 199.4C213.6 203.8 220.533 206 229.6 206C238.267 206 245.067 203.867 250 199.6C255.067 195.2 257.6 189.6 257.6 182.8C257.6 177.467 256.133 173.133 253.2 169.8C250.267 166.467 246.6 163.933 242.2 162.2C237.8 160.467 231.867 158.6 224.4 156.6C215.2 154.2 207.8 151.8 202.2 149.4C196.733 147 192 143.267 188 138.2C184.133 133 182.2 126.067 182.2 117.4C182.2 109.8 184.133 103.067 188 97.2C191.867 91.3333 197.267 86.8 204.2 83.6C211.267 80.4 219.333 78.8 228.4 78.8C241.467 78.8 252.133 82.0667 260.4 88.6C268.8 95.1333 273.533 103.8 274.6 114.6H254.6C253.933 109.267 251.133 104.6 246.2 100.6C241.267 96.4667 234.733 94.4 226.6 94.4C219 94.4 212.8 96.4 208 100.4C203.2 104.267 200.8 109.733 200.8 116.8C200.8 121.867 202.2 126 205 129.2C207.933 132.4 211.467 134.867 215.6 136.6C219.867 138.2 225.8 140.067 233.4 142.2C242.6 144.733 250 147.267 255.6 149.8C261.2 152.2 266 156 270 161.2C274 166.267 276 173.2 276 182C276 188.8 274.2 195.2 270.6 201.2C267 207.2 261.667 212.067 254.6 215.8C247.533 219.533 239.2 221.4 229.6 221.4ZM357.983 220L314.983 171.6V220H296.783V72H314.983V159L357.183 110.4H382.583L330.983 165L382.783 220H357.983ZM403.113 92.6C399.646 92.6 396.713 91.4 394.313 89C391.913 86.6 390.713 83.6667 390.713 80.2C390.713 76.7333 391.913 73.8 394.313 71.4C396.713 69 399.646 67.8 403.113 67.8C406.446 67.8 409.246 69 411.513 71.4C413.913 73.8 415.113 76.7333 415.113 80.2C415.113 83.6667 413.913 86.6 411.513 89C409.246 91.4 406.446 92.6 403.113 92.6ZM411.913 110.4V220H393.713V110.4H411.913ZM455.131 72V220H436.931V72H455.131ZM473.35 164.8C473.35 153.6 475.617 143.8 480.15 135.4C484.683 126.867 490.883 120.267 498.75 115.6C506.75 110.933 515.683 108.6 525.55 108.6C534.083 108.6 542.017 110.6 549.35 114.6C556.683 118.467 562.283 123.6 566.15 130V72H584.55V220H566.15V199.4C562.55 205.933 557.217 211.333 550.15 215.6C543.083 219.733 534.817 221.8 525.35 221.8C515.617 221.8 506.75 219.4 498.75 214.6C490.883 209.8 484.683 203.067 480.15 194.4C475.617 185.733 473.35 175.867 473.35 164.8ZM566.15 165C566.15 156.733 564.483 149.533 561.15 143.4C557.817 137.267 553.283 132.6 547.55 129.4C541.95 126.067 535.75 124.4 528.95 124.4C522.15 124.4 515.95 126 510.35 129.2C504.75 132.4 500.283 137.067 496.95 143.2C493.617 149.333 491.95 156.533 491.95 164.8C491.95 173.2 493.617 180.533 496.95 186.8C500.283 192.933 504.75 197.667 510.35 201C515.95 204.2 522.15 205.8 528.95 205.8C535.75 205.8 541.95 204.2 547.55 201C553.283 197.667 557.817 192.933 561.15 186.8C564.483 180.533 566.15 173.267 566.15 165ZM657.106 221.8C646.84 221.8 637.506 219.467 629.106 214.8C620.84 210.133 614.306 203.533 609.506 195C604.84 186.333 602.506 176.333 602.506 165C602.506 153.8 604.906 143.933 609.706 135.4C614.64 126.733 621.306 120.133 629.706 115.6C638.106 110.933 647.506 108.6 657.906 108.6C668.306 108.6 677.706 110.933 686.106 115.6C694.506 120.133 701.106 126.667 705.906 135.2C710.84 143.733 713.306 153.667 713.306 165C713.306 176.333 710.773 186.333 705.706 195C700.773 203.533 694.04 210.133 685.506 214.8C676.973 219.467 667.506 221.8 657.106 221.8ZM657.106 205.8C663.64 205.8 669.773 204.267 675.506 201.2C681.24 198.133 685.84 193.533 689.306 187.4C692.906 181.267 694.706 173.8 694.706 165C694.706 156.2 692.973 148.733 689.506 142.6C686.04 136.467 681.506 131.933 675.906 129C670.306 125.933 664.24 124.4 657.706 124.4C651.04 124.4 644.906 125.933 639.306 129C633.84 131.933 629.44 136.467 626.106 142.6C622.773 148.733 621.106 156.2 621.106 165C621.106 173.933 622.706 181.467 625.906 187.6C629.24 193.733 633.64 198.333 639.106 201.4C644.573 204.333 650.573 205.8 657.106 205.8Z"
+                  fill="black"
+                />
+                <defs>
+                  <linearGradient
+                    id="p0_cov"
+                    x1="130"
+                    y1="72"
+                    x2="-11.8453"
+                    y2="204.677"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop stop-color="#BF6BFF" />
+                    <stop offset="0.5" stop-color="#7F5AF5" />
+                    <stop offset="1" stop-color="#667EEA" />
+                  </linearGradient>
+                  <linearGradient
+                    id="p1_cov"
+                    x1="130"
+                    y1="72"
+                    x2="-11.8453"
+                    y2="204.677"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop stop-color="#BF6BFF" />
+                    <stop offset="0.5" stop-color="#7F5AF5" />
+                    <stop offset="1" stop-color="#667EEA" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <p
+              class="cover-line"
+              data-en="We connect households with local tradespeople — in a way that makes life simpler for both sides."
+              data-cs="Propojujeme domácnosti a lokální řemeslníky. Způsobem, který zjednoduší život oběma stranám."
+            >
+              We connect households with local tradespeople — in a way that
+              makes life simpler for both sides.
+            </p>
+            <div class="cover-foot">
+              <span
+                data-en="Pre-seed · Prague → Central Europe · 2026"
+                data-cs="Pre-seed · Praha → střední Evropa · 2026"
+                >Pre-seed · Prague → Central Europe · 2026</span
+              >
+            </div>
+          </div>
+        </section>
+
+        <!-- 02 PROBLEM -->
+        <section class="slide">
+          <div class="inner">
+            <div class="khead">
+              <span class="tick"></span
+              ><span class="kicker"
+                ><span data-en="Problem" data-cs="Problém">Problem</span></span
+              ><span class="kn">02</span>
+            </div>
+            <h2
+              class="display"
+              data-en="Both sides have their problems."
+              data-cs="Obě strany mají své problémy."
+            >
+              Obě strany mají své problémy.
+            </h2>
+            <div class="two probsplit">
+              <div class="card ambertop">
+                <p class="grp">
+                  <span data-en="Customer" data-cs="Zákazník">Zákazník</span>
+                </p>
+                <ul class="qlist">
+                  <li
+                    data-en="Where do I even find a tradesperson?"
+                    data-cs="Kde najdu řemeslníka?"
+                  >
+                    Kde najdu řemeslníka?
+                  </li>
+                  <li
+                    data-en="Why is this so complicated?"
+                    data-cs="Proč je to tak složitý?"
+                  >
+                    Proč je to tak složitý?
+                  </li>
+                  <li data-en="Will they have time?" data-cs="Bude mít čas?">
+                    Bude mít čas?
+                  </li>
+                  <li
+                    data-en="When will they show up? Will they show up at all?"
+                    data-cs="Kdy dorazí? Dorazí vůbec?"
+                  >
+                    Kdy dorazí? Dorazí vůbec?
+                  </li>
+                  <li
+                    data-en="How much will it cost?"
+                    data-cs="Kolik to bude stát?"
+                  >
+                    Kolik to bude stát?
+                  </li>
+                  <li
+                    data-en="Am I overpaying for this?"
+                    data-cs="Nezaplatím za to zbytečně moc?"
+                  >
+                    Nezaplatím za to zbytečně moc?
+                  </li>
+                  <li
+                    data-en="Will I get any guarantee?"
+                    data-cs="Budu mít záruku?"
+                  >
+                    Budu mít záruku?
+                  </li>
+                  <li
+                    data-en="Will I even get an invoice?"
+                    data-cs="Dostanu fakturu?"
+                  >
+                    Dostanu fakturu?
+                  </li>
+                </ul>
+              </div>
+              <div class="card tealtop">
+                <p class="grp">
+                  <span data-en="Tradesperson" data-cs="Řemeslník"
+                    >Řemeslník</span
+                  >
+                </p>
+                <ul class="qlist teal">
+                  <li
+                    data-en="How do I find jobs?"
+                    data-cs="Jak najdu zakázky?"
+                  >
+                    Jak najdu zakázky?
+                  </li>
+                  <li
+                    data-en="Do I have to do marketing? Flyers, websites, Google?"
+                    data-cs="Musím řešit marketing? Letáky, weby, google?"
+                  >
+                    Musím řešit marketing? Letáky, weby, google?
+                  </li>
+                  <li
+                    data-en="Why should I pay for work I didn&rsquo;t even win?"
+                    data-cs="Proč bych měl platit za práci, kterou jsem ani nedostal?"
+                  >
+                    Proč bych měl platit za práci, kterou jsem ani nedostal?
+                  </li>
+                  <li
+                    data-en="Can&rsquo;t these jobs just be handed over properly?"
+                    data-cs="Nemůžu ty zakázky dostat nějak rozumně předaný?"
+                  >
+                    Nemůžu ty zakázky dostat nějak rozumně předaný?
+                  </li>
+                  <li
+                    data-en="Should I just go be a subcontractor instead?"
+                    data-cs="Půjdu radši dělat poddodavatele?"
+                  >
+                    Půjdu radši dělat poddodavatele?
+                  </li>
+                  <li
+                    data-en="Do I really have to drive out there three times?"
+                    data-cs="Je nutný tam jezdit třikrát jak blbec?"
+                  >
+                    Je nutný tam jezdit třikrát jak blbec?
+                  </li>
+                  <li
+                    data-en="Am I driving out there for nothing?"
+                    data-cs="Nejedu tam zbytečně?"
+                  >
+                    Nejedu tam zbytečně?
+                  </li>
+                  <li
+                    data-en="Will I even get paid?"
+                    data-cs="Dostanu vůbec zaplaceno?"
+                  >
+                    Dostanu vůbec zaplaceno?
+                  </li>
+                  <li
+                    data-en="Do I have to do admin every evening? Invoices, EET?"
+                    data-cs="Musim po večerech dělat administrativu? Co faktury a EET?"
+                  >
+                    Musim po večerech dělat administrativu? Co faktury a EET?
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="punch">
+              <p
+                data-en="Yet both sides would rather handle it in a completely different way."
+                data-cs="Obě strany by si to přitom přály řešit úplně jinak."
+              >
+                Obě strany by si to přitom přály řešit úplně jinak.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 03 SOLUTION -->
+        <section class="slide">
+          <div class="inner">
+            <div class="khead">
+              <span class="tick"></span
+              ><span class="kicker"
+                ><span data-en="Solution" data-cs="Řešení">Solution</span></span
+              ><span class="kn">03</span>
+            </div>
+            <h2
+              class="display"
+              data-en="Skildo fixes both sides — concretely."
+              data-cs="Skildo to řeší — konkrétně."
+            >
+              Skildo fixes both sides — concretely.
+            </h2>
+            <ul class="problist solved">
+              <li>
+                <span class="pn">01</span
+                ><span class="pt" data-en="One place" data-cs="Jedno místo"
+                  >Jedno místo</span
+                >
+              </li>
+              <li>
+                <span class="pn">02</span
+                ><span
+                  class="pt"
+                  data-en="Photo + AI — the modern way to post a job"
+                  data-cs="Foto + AI = moderní způsob zadávání zakázek"
+                  >Foto + AI = moderní způsob zadávání zakázek</span
+                >
+              </li>
+              <li>
+                <span class="pn">03</span
+                ><span
+                  class="pt"
+                  data-en="Compare offers"
+                  data-cs="Porovnání nabídek"
+                  >Porovnání nabídek</span
+                >
+              </li>
+              <li>
+                <span class="pn">04</span
+                ><span class="pt" data-en="Certainty" data-cs="Jistoty"
+                  >Jistoty</span
+                >
+              </li>
+              <li>
+                <span class="pn">05</span
+                ><span class="pt" data-en="Fairness" data-cs="Férovost"
+                  >Férovost</span
+                >
+              </li>
+              <li>
+                <span class="pn">06</span
+                ><span class="pt" data-en="Optimisation" data-cs="Optimalizace"
+                  >Optimalizace</span
+                >
+              </li>
+              <li>
+                <span class="pn">07</span
+                ><span
+                  class="pt"
+                  data-en="Admin handled"
+                  data-cs="Vyřešená administrativa"
+                  >Vyřešená administrativa</span
+                >
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 04 WHY NOW -->
+        <section class="slide">
+          <div class="inner">
+            <div class="khead">
+              <span class="tick"></span
+              ><span class="kicker"
+                ><span data-en="Why now" data-cs="Proč teď">Why now</span></span
+              ><span class="kn">04</span>
+            </div>
+            <h2
+              class="display"
+              data-en="Times are changing — trades are (still) lagging."
+              data-cs="Doba se mění a řemeslo (zatím) zaostává."
+            >
+              Times are changing — trades are (still) lagging.
+            </h2>
+            <div class="three">
+              <div class="card tealtop">
+                <h4
+                  data-en="Adoption of online solutions"
+                  data-cs="Adopce online řešení"
+                >
+                  Adoption of online solutions
+                </h4>
+                <p
+                  data-en="Vinted, Bolt and other online services normalised doing business via mobile and apps. The agentic-AI boom now has people letting software find and book — adopted faster each wave."
+                  data-cs="Vinted, Bolt a další online služby znormalizovaly obchodování přes mobil a aplikace."
+                >
+                  Mobile — and now AI — transactions are the new normal.
+                </p>
+              </div>
+              <div class="card tealtop">
+                <h4
+                  data-en="A new generation of pros"
+                  data-cs="Nová generace řemeslníků"
+                >
+                  A new generation of pros
+                </h4>
+                <p
+                  data-en="The trade workforce is ageing out; the incoming cohort is phone-native, runs the business from mobile and expects an app and instant pay."
+                  data-cs="Řemeslnická generace stárne; ta nastupující je „phone-native“ — řídí byznys z mobilu a čeká appku a okamžitou platbu."
+                >
+                  The new generation of pros runs the business from a phone.
+                </p>
+              </div>
+              <div class="card tealtop">
+                <h4 data-en="AI makes it buildable" data-cs="AI to umožňuje">
+                  AI makes it buildable
+                </h4>
+                <p
+                  data-en="Only now can multimodal AI turn a photo into a complete, priced, ready-to-match brief. Three years ago this product couldn't exist."
+                  data-cs="Teprve teď umí AI z fotky udělat kompletní, naceněné zadání. Agentická AI je adoptovaná stále rychleji. Před třemi lety tenhle produkt nešel postavit."
+                >
+                  Photo → ready brief → match only became possible now.
+                </p>
+              </div>
+              <div class="card tealtop">
+                <h4
+                  data-en="Payment rails are ready"
+                  data-cs="Platební rails jsou hotové"
+                >
+                  Payment rails are ready
+                </h4>
+                <p
+                  data-en="Instant account-to-account payments are now standard (CZ since 2018; EU-wide from Oct 2025), so escrow and same-day payout are cheap."
+                  data-cs="Okamžité platby jsou dnes standard, escrow a výplata tentýž den zlevňují."
+                >
+                  Instant payments + escrow are cheap now.
+                </p>
+              </div>
+              <div class="card tealtop">
+                <h4 data-en="Open window in CEE" data-cs="Volné okno v CEE">
+                  Open window in CEE
+                </h4>
+                <p
+                  data-en="No “marketplace + payments” leader has emerged in Central Europe — TaskRabbit and Thumbtack never came, local players are end-to-end or lead-gen. The throne is unclaimed."
+                  data-cs="Ve střední Evropě nevznikl lídr typu „marketplace + platby“. Lokální hráči jsou end-to-end nebo lead-gen. Trůn je volný."
+                >
+                  No marketplace-plus-payments leader in CEE yet.
+                </p>
+              </div>
+              <div class="card tealtop">
+                <h4
+                  data-en="Demand outruns supply"
+                  data-cs="Poptávka předbíhá nabídku"
+                >
+                  Demand outruns supply
+                </h4>
+                <p
+                  data-en="~100,000 tradespeople missing in Czechia (AMSP) and rising wages mean households will pay to simply get it done."
+                  data-cs="~100 000 chybějících řemeslníků v ČR (AMSP) a rostoucí mzdy znamenají, že domácnosti zaplatí za to, aby to prostě bylo hotové."
+                >
+                  ~100k missing pros — households will pay to get it done.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 05 BUSINESS MODEL -->
+        <section class="slide">
+          <div class="inner">
+            <div class="khead">
+              <span class="tick"></span
+              ><span class="kicker"
+                ><span data-en="Business model" data-cs="Byznys model"
+                  >Business model</span
+                ></span
+              ><span class="kn">05</span>
+            </div>
+            <h2
+              class="display"
+              data-en="Win supply first. Monetise the transaction second."
+              data-cs="Nejdřív získat nabídku. Pak monetizovat transakci."
+            >
+              Win supply first. Monetise second.
+            </h2>
+            <div class="two">
+              <div class="card">
+                <div class="lab">
+                  <span data-en="Phase 1 · the wedge" data-cs="Fáze 1 · klín"
+                    >Phase 1 · the wedge</span
+                  >
+                </div>
+                <h4
+                  data-en="Tradesperson subscription"
+                  data-cs="Předplatné pro řemeslníka"
+                >
+                  Tradesperson subscription
+                </h4>
+                <p
+                  data-en="Free until the first completed job, then a subscription. The goal is liquidity, not revenue."
+                  data-cs="Zdarma do první dokončené zakázky, pak předplatné. Cílem je likvidita, ne tržby."
+                >
+                  Free until first job, then a subscription. Goal: liquidity.
+                </p>
+              </div>
+              <div class="card ambertop">
+                <div class="lab">
+                  <span data-en="Phase 2 · the target" data-cs="Fáze 2 · cíl"
+                    >Phase 2 · the target</span
+                  >
+                </div>
+                <h4
+                  data-en="We become the payment layer — 15%"
+                  data-cs="Stáváme se platební vrstvou — 15 %"
+                >
+                  We become the payment layer — 15%
+                </h4>
+                <p
+                  data-en="7.5% from the customer (safety, written scope & price, escrow, dispute resolution, guarantee) + 7.5% from the pro (a stream of nearby jobs, instant payment, invoicing/EET, CRM)."
+                  data-cs="7,5 % od zákazníka (bezpečí, písemný rozsah a cena, escrow, řešení sporů, záruka) + 7,5 % od řemeslníka (proud zakázek poblíž, okamžitá platba, fakturace/EET, CRM)."
+                >
+                  7.5% customer (protection) + 7.5% pro (jobs + back office).
+                </p>
+              </div>
+            </div>
+            <div class="bars">
+              <div class="bar">
+                <span class="bl"
+                  ><span data-en="Lead-gen portals" data-cs="Lead-gen portály"
+                    >Lead-gen portals</span
+                  ></span
+                ><span class="track"><i style="width: 6%"></i></span
+                ><span class="bv">~1.5%</span>
+              </div>
+              <div class="bar">
+                <span class="bl"
+                  ><span data-en="Skildo (target)" data-cs="Skildo (cíl)"
+                    >Skildo (target)</span
+                  ></span
+                ><span class="track"
+                  ><i class="hot" style="width: 62%"></i></span
+                ><span class="bv">15%</span>
+              </div>
+              <div class="bar">
+                <span class="bl">SuperSoused / TaskRabbit</span
+                ><span class="track"><i style="width: 62%"></i></span
+                ><span class="bv">15%</span>
+              </div>
+              <div class="bar">
+                <span class="bl">Adam</span
+                ><span class="track"><i style="width: 92%"></i></span
+                ><span class="bv">22%</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 06 WHY NOBODY WALKS -->
+        <section class="slide">
+          <div class="inner">
+            <div class="khead">
+              <span class="tick"></span
+              ><span class="kicker"
+                ><span
+                  data-en="Business-model backbone"
+                  data-cs="Opora byznys modelu"
+                  >Business-model backbone</span
+                ></span
+              ><span class="kn">06</span>
+            </div>
+            <h2
+              class="display"
+              data-en="What value does each side buy?"
+              data-cs="Jakou hodnotu si kupují obě strany?"
+            >
+              What value does each side buy?
+            </h2>
+            <p
+              class="sub wide"
+              data-en="Each side pays 7.5% — and each gets far more than 7.5% back. Leaking off-platform means taking all that risk back on."
+              data-cs="Každá strana platí 7,5 % — a každá dostane zpět mnohem víc. Utéct mimo platformu znamená vzít si všechno to riziko zpátky."
+            >
+              Each side pays 7.5% and gets far more than 7.5% back.
+            </p>
+            <div class="flow f3">
+              <div class="step">
+                <div
+                  class="sn"
+                  data-en="CUSTOMER PAYS IN"
+                  data-cs="ZÁKAZNÍK PLATÍ"
+                >
+                  CUSTOMER PAYS IN
+                </div>
+                <h4>5,375 Kč</h4>
+                <p
+                  data-en="5,000 + 7.5%, paid into escrow on agreement."
+                  data-cs="5 000 + 7,5 %, zaplaceno do úschovy při domluvě."
+                >
+                  5,000 + 7.5% into escrow.
+                </p>
+              </div>
+              <div class="step">
+                <div class="sn" data-en="SKILDO HOLDS" data-cs="SKILDO DRŽÍ">
+                  SKILDO HOLDS
+                </div>
+                <h4>5,000 Kč</h4>
+                <p
+                  data-en="Held safely until the work is confirmed done right."
+                  data-cs="Bezpečně drženo, dokud není práce potvrzena jako hotová."
+                >
+                  Held until the job is confirmed.
+                </p>
+              </div>
+              <div class="step">
+                <div
+                  class="sn"
+                  data-en="TRADESPERSON GETS"
+                  data-cs="ŘEMESLNÍK DOSTANE"
+                >
+                  TRADESPERSON GETS
+                </div>
+                <h4>4,625 Kč</h4>
+                <p
+                  data-en="5,000 − 7.5%, released instantly on approval."
+                  data-cs="5 000 − 7,5 %, vyplaceno okamžitě po potvrzení."
+                >
+                  5,000 − 7.5%, paid instantly.
+                </p>
+              </div>
+            </div>
+            <div class="two">
+              <div class="card ambertop">
+                <p class="grp">
+                  <span
+                    data-en="The customer's 7.5% buys"
+                    data-cs="7,5 % zákazníka koupí"
+                    >The customer's 7.5% buys</span
+                  >
+                </p>
+                <ul class="catlist">
+                  <li>
+                    <span
+                      class="ct"
+                      data-en="A tradesperson who shows up prepared"
+                      data-cs="Řemeslníka, co přijede připravený"
+                      >A tradesperson who shows up prepared</span
+                    ><span
+                      class="cd"
+                      data-en="Vetted, and does it right first time"
+                      data-cs="Prověřený a udělá to správně na první dobrou"
+                      >Vetted, and does it right first time</span
+                    >
+                  </li>
+                  <li>
+                    <span
+                      class="ct"
+                      data-en="Money kept safe"
+                      data-cs="Peníze v bezpečí"
+                      >Money kept safe</span
+                    ><span
+                      class="cd"
+                      data-en="Escrow releases only when it's done"
+                      data-cs="Úschova vyplatí, až když je hotovo"
+                      >Escrow releases only when it's done</span
+                    >
+                  </li>
+                  <li>
+                    <span
+                      class="ct"
+                      data-en="A clear price"
+                      data-cs="Jasnou cenu"
+                      >A clear price</span
+                    ><span
+                      class="cd"
+                      data-en="The price is known up front and the customer's payment is protected"
+                      data-cs="Cena je známá předem, zákazníkova platba je chráněna"
+                      >The price is known up front and the customer's payment is
+                      protected</span
+                    >
+                  </li>
+                  <li>
+                    <span
+                      class="ct"
+                      data-en="Paperwork handled"
+                      data-cs="Vyřešené papírování"
+                      >Paperwork handled</span
+                    ><span
+                      class="cd"
+                      data-en="Work contract and documents sorted — nothing to deal with"
+                      data-cs="Smlouva o dílo i doklady vyřešené — nic neřešíš"
+                      >Work contract and documents sorted — nothing to deal
+                      with</span
+                    >
+                  </li>
+                  <li>
+                    <span
+                      class="ct"
+                      data-en="Recourse if it goes wrong"
+                      data-cs="Řešení, když se něco pokazí"
+                      >Recourse if it goes wrong</span
+                    ><span
+                      class="cd"
+                      data-en="Skildo holds the money and helps resolve any dispute"
+                      data-cs="Skildo drží peníze a potenciální spor pomůže řešit"
+                      >Skildo holds the money and helps resolve any
+                      dispute</span
+                    >
+                  </li>
+                </ul>
+              </div>
+              <div class="card tealtop">
+                <p class="grp">
+                  <span
+                    data-en="The tradesperson's 7.5% buys"
+                    data-cs="7,5 % řemeslníka koupí"
+                    >The tradesperson's 7.5% buys</span
+                  >
+                </p>
+                <ul class="catlist teal">
+                  <li>
+                    <span
+                      class="ct"
+                      data-en="Work without hunting for it"
+                      data-cs="Práci bez shánění"
+                      >Work without hunting for it</span
+                    ><span
+                      class="cd"
+                      data-en="A stream of nearby jobs — no marketing, no cold calls"
+                      data-cs="Proud zakázek poblíž — žádný marketing ani shánění"
+                      >A stream of nearby jobs — no marketing, no cold
+                      calls</span
+                    >
+                  </li>
+                  <li>
+                    <span
+                      class="ct"
+                      data-en="A well-described job"
+                      data-cs="Dobře popsanou zakázku"
+                      >A well-described job</span
+                    ><span
+                      class="cd"
+                      data-en="Full brief up front — no wasted survey trip"
+                      data-cs="Hotové zadání předem — žádná cesta měřit nadarmo"
+                      >Full brief up front — no survey trip</span
+                    >
+                  </li>
+                  <li>
+                    <span
+                      class="ct"
+                      data-en="Sure, instant payout"
+                      data-cs="Jistou a okamžitou výplatu"
+                      >Sure, instant payout</span
+                    ><span
+                      class="cd"
+                      data-en="Money already in escrow; paid on approval, no chasing"
+                      data-cs="Peníze už čekají v úschově; zaplaceno po potvrzení, žádné vymáhání"
+                      >Money already in escrow; paid on approval, no
+                      chasing</span
+                    >
+                  </li>
+                  <li>
+                    <span
+                      class="ct"
+                      data-en="Admin handled"
+                      data-cs="Administrativu za tebe"
+                      >Admin handled</span
+                    ><span
+                      class="cd"
+                      data-en="Invoice, tax reporting (EET 2.0) and the contract — done for them"
+                      data-cs="Faktura, hlášení tržeb (EET 2.0) i smlouva — vyřízeno za něj"
+                      >Invoice, tax reporting (EET 2.0) and the contract — done
+                      for them</span
+                    >
+                  </li>
+                  <li>
+                    <span
+                      class="ct"
+                      data-en="A basic CRM"
+                      data-cs="Základní CRM"
+                      >A basic CRM</span
+                    ><span
+                      class="cd"
+                      data-en="Customer database, calendar and reminders"
+                      data-cs="Databáze zákazníků, kalendář a remindery"
+                      >Customer database, calendar and reminders</span
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 07 MARKET -->
+        <section class="slide">
+          <div class="inner">
+            <div class="khead">
+              <span class="tick"></span
+              ><span class="kicker"
+                ><span data-en="Market" data-cs="Trh">Market</span></span
+              ><span class="kn">07</span>
+            </div>
+            <h2
+              class="display"
+              data-en="A big market — and the right slice of it."
+              data-cs="Velký trh — a ten správný kus z něj."
+            >
+              A big market, and the right slice.
+            </h2>
+            <div class="funnel">
+              <div class="fr">
+                <span class="fl"
+                  >TAM ·
+                  <span data-en="Europe" data-cs="Evropa">Europe</span></span
+                ><span class="fv" data-en="~€105bn" data-cs="~105 mld. €"
+                  >~€105bn</span
+                >
+              </div>
+              <div class="fr" style="width: 64%">
+                <span class="fl"
+                  >SAM ·
+                  <span data-en="Central Europe" data-cs="Střední Evropa"
+                    >Central Europe</span
+                  ></span
+                ><span class="fv" data-en="€8–18bn" data-cs="8–18 mld. €"
+                  >€8–18bn</span
+                >
+              </div>
+              <div class="fr hot" style="width: 40%">
+                <span class="fl"
+                  >SOM ·
+                  <span data-en="Czechia" data-cs="Česko">Czechia</span></span
+                ><span class="fv" data-en="€1.9–2.5bn" data-cs="1,9–2,5 mld. €"
+                  >€1.9–2.5bn</span
+                >
+              </div>
+            </div>
+            <div class="punch">
+              <p
+                data-en="Recurring home repairs, maintenance and services — spent year after year. B2B and full renovations are upside on top."
+                data-cs="Opakující se opravy, údržba a služby v bydlení — utrácené rok co rok. B2B a celé rekonstrukce jsou upside navíc."
+              >
+                Recurring spend, year after year. B2B and renovations are
+                upside.
+              </p>
+            </div>
+            <p class="note">
+              <span
+                data-en="TAM = European home-services market (~€100bn in 2024, ~€105bn in 2025; Expert Market Research). SOM anchored to ~4.6M Czech households (ČSÚ) × ~€420–580/yr on home repairs, maintenance & services. Residential only — B2B is upside."
+                data-cs="TAM = evropský trh domácích služeb (~100 mld. € v 2024, ~105 mld. € v 2025; Expert Market Research). SOM ukotven na ~4,6 mil. českých domácností (ČSÚ) × ~420–580 €/rok na opravy, údržbu a služby v bydlení. Pouze rezidenční — B2B je upside."
+                >TAM = European home-services market (~€100–105bn, 2024–25). SOM
+                = ~4.6M Czech households × ~€420–580/yr. Residential only.</span
+              >
+            </p>
+          </div>
+        </section>
+
+        <!-- 08 MARKET GROWTH -->
+        <section class="slide">
+          <div class="inner">
+            <div class="khead">
+              <span class="tick"></span
+              ><span class="kicker"
+                ><span data-en="Market growth" data-cs="Růst trhu"
+                  >Market growth</span
+                ></span
+              ><span class="kn">08</span>
+            </div>
+            <h2
+              class="display"
+              data-en="The market grows — online demand grows ~2× faster."
+              data-cs="Trh roste — online poptávka roste ~2× rychleji."
+            >
+              Online demand grows ~2× faster.
+            </h2>
+            <div class="chartwrap">
+              <svg
+                viewBox="0 0 760 300"
+                role="img"
+                aria-label="Market vs online demand growth"
+              >
+                <line
+                  x1="70"
+                  y1="250"
+                  x2="610"
+                  y2="250"
+                  style="stroke: var(--line-2); stroke-width: 1"
+                />
+                <line
+                  x1="70"
+                  y1="177"
+                  x2="610"
+                  y2="177"
+                  style="stroke: var(--line); stroke-width: 1"
+                />
+                <line
+                  x1="70"
+                  y1="103"
+                  x2="610"
+                  y2="103"
+                  style="stroke: var(--line); stroke-width: 1"
+                />
+                <line
+                  x1="70"
+                  y1="30"
+                  x2="610"
+                  y2="30"
+                  style="stroke: var(--line); stroke-width: 1"
+                />
+                <text
+                  x="60"
+                  y="253"
+                  text-anchor="end"
+                  style="
+                    font-family: var(--mono);
+                    font-size: 10px;
+                    fill: var(--ink-3);
+                  "
+                >
+                  0
+                </text>
+                <text
+                  x="60"
+                  y="180"
+                  text-anchor="end"
+                  style="
+                    font-family: var(--mono);
+                    font-size: 10px;
+                    fill: var(--ink-3);
+                  "
+                >
+                  80
+                </text>
+                <text
+                  x="60"
+                  y="106"
+                  text-anchor="end"
+                  style="
+                    font-family: var(--mono);
+                    font-size: 10px;
+                    fill: var(--ink-3);
+                  "
+                >
+                  160
+                </text>
+                <text
+                  x="60"
+                  y="33"
+                  text-anchor="end"
+                  style="
+                    font-family: var(--mono);
+                    font-size: 10px;
+                    fill: var(--ink-3);
+                  "
+                >
+                  240
+                </text>
+                <text
+                  x="70"
+                  y="20"
+                  style="
+                    font-family: var(--mono);
+                    font-size: 9px;
+                    fill: var(--ink-3);
+                  "
+                  data-en="€bn"
+                  data-cs="mld. €"
+                >
+                  €bn
+                </text>
+                <polyline
+                  points="70,158 178,143 286,126 394,107 502,84 610,42"
+                  fill="none"
+                  style="
+                    stroke: var(--ink);
+                    stroke-width: 2.5;
+                    stroke-linejoin: round;
+                  "
+                />
+                <polyline
+                  points="70,224 178,213 286,197 394,178 502,155 610,115"
+                  fill="none"
+                  style="
+                    stroke: var(--amber);
+                    stroke-width: 2.5;
+                    stroke-dasharray: 6 5;
+                    stroke-linejoin: round;
+                  "
+                />
+                <circle cx="70" cy="158" r="3" style="fill: var(--ink)" />
+                <circle cx="178" cy="143" r="3" style="fill: var(--ink)" />
+                <circle cx="286" cy="126" r="3" style="fill: var(--ink)" />
+                <circle cx="394" cy="107" r="3" style="fill: var(--ink)" />
+                <circle cx="502" cy="84" r="3" style="fill: var(--ink)" />
+                <circle cx="610" cy="42" r="3" style="fill: var(--ink)" />
+                <circle cx="70" cy="224" r="3" style="fill: var(--amber)" />
+                <circle cx="178" cy="213" r="3" style="fill: var(--amber)" />
+                <circle cx="286" cy="197" r="3" style="fill: var(--amber)" />
+                <circle cx="394" cy="178" r="3" style="fill: var(--amber)" />
+                <circle cx="502" cy="155" r="3" style="fill: var(--amber)" />
+                <circle cx="610" cy="115" r="3" style="fill: var(--amber)" />
+                <text
+                  x="620"
+                  y="40"
+                  style="
+                    font-family: &quot;Space Grotesk&quot;, sans-serif;
+                    font-size: 12px;
+                    font-weight: 600;
+                    fill: var(--ink);
+                  "
+                  data-en="Total market"
+                  data-cs="Celkový trh"
+                >
+                  Total market
+                </text>
+                <text
+                  x="620"
+                  y="55"
+                  style="
+                    font-family: var(--mono);
+                    font-size: 10px;
+                    fill: var(--ink-3);
+                  "
+                >
+                  ~7.7%/yr
+                </text>
+                <text
+                  x="620"
+                  y="111"
+                  style="
+                    font-family: &quot;Space Grotesk&quot;, sans-serif;
+                    font-size: 12px;
+                    font-weight: 600;
+                    fill: var(--amber-d);
+                  "
+                  data-en="Online demand"
+                  data-cs="Online poptávka"
+                >
+                  Online demand
+                </text>
+                <text
+                  x="620"
+                  y="126"
+                  style="
+                    font-family: var(--mono);
+                    font-size: 10px;
+                    fill: var(--amber-d);
+                  "
+                >
+                  ~16%/yr · 2×
+                </text>
+                <text
+                  x="70"
+                  y="270"
+                  text-anchor="middle"
+                  style="
+                    font-family: var(--mono);
+                    font-size: 10px;
+                    fill: var(--ink-3);
+                  "
+                >
+                  2024
+                </text>
+                <text
+                  x="286"
+                  y="270"
+                  text-anchor="middle"
+                  style="
+                    font-family: var(--mono);
+                    font-size: 10px;
+                    fill: var(--ink-3);
+                  "
+                >
+                  2028
+                </text>
+                <text
+                  x="502"
+                  y="270"
+                  text-anchor="middle"
+                  style="
+                    font-family: var(--mono);
+                    font-size: 10px;
+                    fill: var(--ink-3);
+                  "
+                >
+                  2032
+                </text>
+                <text
+                  x="610"
+                  y="270"
+                  text-anchor="middle"
+                  style="
+                    font-family: var(--mono);
+                    font-size: 10px;
+                    fill: var(--ink-3);
+                  "
+                >
+                  2035
+                </text>
+              </svg>
+            </div>
+            <div class="punch">
+              <p
+                data-en="The European market compounds at ~7.7%/yr. The slice that starts online compounds at ~16%/yr — about 2× — and is closing on the ceiling."
+                data-cs="Evropský trh roste ~7,7 %/rok. Část, která začíná online, roste ~16 %/rok — zhruba 2× — a dohání strop."
+              >
+                Total ~7.7%/yr; online demand ~16%/yr, ~2× faster.
+              </p>
+            </div>
+            <p class="note">
+              <span
+                data-en="Total-market growth (~7.7%/yr) is the published European home-services CAGR (Expert Market Research, 2025–2034). Today ~1 in 3 home jobs already starts online, but only ~2% is paid through a platform — we ride the fast curve and close that payment gap. Online-demand figures (~16%/yr) are our estimates triangulated from lead-portal volumes and search data."
+                data-cs="Růst celého trhu (~7,7 %/rok) je publikovaný CAGR evropského trhu domácích služeb (Expert Market Research, 2025–2034). Dnes už ~1 ze 3 domácích zakázek začíná online, ale jen ~2 % se platí přes platformu — vezeme se na rychlé křivce a tuhle platební mezeru zavíráme. Čísla online poptávky (~16 %/rok) jsou naše odhady triangulované z objemů lead portálů a vyhledávání."
+                >Total ~7.7%/yr is the published European CAGR; ~1 in 3 jobs
+                starts online, only ~2% paid via a platform; the ~16%/yr online
+                figure is our estimate.</span
+              >
+            </p>
+          </div>
+        </section>
+
+        <!-- 09 TRACTION -->
+        <section class="slide">
+          <div class="inner">
+            <div class="khead">
+              <span class="tick"></span
+              ><span class="kicker"
+                ><span data-en="Traction" data-cs="Trakce">Traction</span></span
+              ><span class="kn">09</span>
+            </div>
+            <h2
+              class="display"
+              data-en="Week one, the flywheel already turned."
+              data-cs="Hned první týden se kolečko začalo točit."
+            >
+              Week one, the flywheel already turned.
+            </h2>
+            <div class="tiles">
+              <div class="tile">
+                <div class="v">103</div>
+                <div class="l">
+                  <span data-en="customers" data-cs="zákazníků">customers</span>
+                </div>
+              </div>
+              <div class="tile">
+                <div class="v">28</div>
+                <div class="l">
+                  <span data-en="tradespeople" data-cs="řemeslníků"
+                    >tradespeople</span
+                  >
+                </div>
+              </div>
+              <div class="tile">
+                <div class="v am">3.7×</div>
+                <div class="l">
+                  <span
+                    data-en="customers per pro"
+                    data-cs="zákazníků na řemeslníka"
+                    >customers per pro</span
+                  >
+                </div>
+              </div>
+              <div class="tile">
+                <div class="v tl">58%</div>
+                <div class="l">
+                  <span data-en="of jobs matched" data-cs="zakázek spárováno"
+                    >of jobs matched</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="chips">
+              <span class="chip"
+                ><span data-en="More pros" data-cs="Víc řemeslníků"
+                  >More pros</span
+                ><span class="ar">&rarr;</span></span
+              >
+              <span class="chip"
+                ><span data-en="Faster matches" data-cs="Rychlejší spárování"
+                  >Faster matches</span
+                ><span class="ar">&rarr;</span></span
+              >
+              <span class="chip"
+                ><span
+                  data-en="Happier customers"
+                  data-cs="Spokojenější zákazníci"
+                  >Happier customers</span
+                ><span class="ar">&rarr;</span></span
+              >
+              <span class="chip"
+                ><span data-en="More demand" data-cs="Větší poptávka"
+                  >More demand</span
+                ><span class="ar">&#8634;</span></span
+              >
+            </div>
+          </div>
+        </section>
+
+        <!-- 10 GO-TO-MARKET -->
+        <section class="slide">
+          <div class="inner">
+            <div class="khead">
+              <span class="tick"></span
+              ><span class="kicker"
+                ><span data-en="Go-to-market" data-cs="Expanze"
+                  >Go-to-market</span
+                ></span
+              ><span class="kn">10</span>
+            </div>
+            <h2
+              class="display"
+              data-en="From Prague to other metropolises."
+              data-cs="Z Prahy do dalších metropolí"
+            >
+              Z Prahy do dalších metropolí
+            </h2>
+            <div class="expmap">
+              <svg
+                viewBox="0 0 800 330"
+                role="img"
+                aria-label="Expansion from Prague to Central European capitals"
+              >
+                <defs>
+                  <linearGradient id="jg" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0" stop-color="#EC6F2D" />
+                    <stop offset="0.30" stop-color="#EC6F2D" />
+                    <stop offset="0.37" stop-color="#EC6F2D" />
+                    <stop offset="1" stop-color="#EC6F2D" />
+                  </linearGradient>
+                  <marker
+                    id="ah"
+                    markerWidth="11"
+                    markerHeight="11"
+                    refX="7"
+                    refY="4"
+                    orient="auto"
+                  >
+                    <path d="M0,0 L8,4 L0,8 Z" fill="#EC6F2D" />
+                  </marker>
+                  <marker
+                    id="aha"
+                    markerWidth="10"
+                    markerHeight="10"
+                    refX="6"
+                    refY="3.5"
+                    orient="auto"
+                  >
+                    <path d="M0,0 L7,3.5 L0,7 Z" fill="#EC6F2D" />
+                  </marker>
+                </defs>
+                <line
+                  x1="295"
+                  y1="88"
+                  x2="295"
+                  y2="300"
+                  stroke="#76869B"
+                  stroke-width="1"
+                  stroke-dasharray="3 4"
+                />
+                <path
+                  d="M80,265 Q145,250 205,238 Q300,221 395,205 Q480,184 565,165 Q645,178 715,200 Q745,208 765,222"
+                  fill="none"
+                  stroke="url(#jg)"
+                  stroke-width="3"
+                  stroke-dasharray="2 6"
+                  stroke-linecap="round"
+                  marker-end="url(#ah)"
+                />
+                <line
+                  x1="252"
+                  y1="130"
+                  x2="342"
+                  y2="130"
+                  stroke="#EC6F2D"
+                  stroke-width="2"
+                  marker-end="url(#aha)"
+                />
+                <circle
+                  cx="80"
+                  cy="265"
+                  r="16"
+                  fill="#EC6F2D"
+                  stroke="#F3F1EB"
+                  stroke-width="3"
+                />
+                <circle
+                  cx="205"
+                  cy="238"
+                  r="34"
+                  fill="#EC6F2D"
+                  stroke="#F3F1EB"
+                  stroke-width="3"
+                />
+                <circle
+                  cx="395"
+                  cy="205"
+                  r="28"
+                  fill="#EC6F2D"
+                  stroke="#F3F1EB"
+                  stroke-width="3"
+                />
+                <circle
+                  cx="565"
+                  cy="165"
+                  r="44"
+                  fill="#EC6F2D"
+                  stroke="#F3F1EB"
+                  stroke-width="3"
+                />
+                <circle
+                  cx="715"
+                  cy="200"
+                  r="30"
+                  fill="#EC6F2D"
+                  stroke="#F3F1EB"
+                  stroke-width="3"
+                />
+                <text
+                  x="80"
+                  y="269"
+                  text-anchor="middle"
+                  style="
+                    font-family: var(--mono);
+                    font-size: 9px;
+                    font-weight: 700;
+                    fill: #fff;
+                  "
+                >
+                  7–8
+                </text>
+                <text
+                  x="40"
+                  y="40"
+                  style="
+                    font-family: var(--mono);
+                    font-size: 10.5px;
+                    font-weight: 700;
+                    letter-spacing: 0.06em;
+                    fill: #ec6f2d;
+                  "
+                  data-en="PHASE 1 — PROVE PRAGUE"
+                  data-cs="FÁZE 1 — DOKÁZAT PRAHU"
+                >
+                  PHASE 1 — PROVE PRAGUE
+                </text>
+                <text
+                  x="565"
+                  y="40"
+                  text-anchor="middle"
+                  style="
+                    font-family: var(--mono);
+                    font-size: 10.5px;
+                    font-weight: 700;
+                    letter-spacing: 0.06em;
+                    fill: #ec6f2d;
+                  "
+                  data-en="PHASE 2 — STRAIGHT ABROAD"
+                  data-cs="FÁZE 2 — ROVNOU ZA HRANICE"
+                >
+                  PHASE 2 — STRAIGHT ABROAD
+                </text>
+                <text
+                  x="297"
+                  y="112"
+                  text-anchor="middle"
+                  style="
+                    font-family: &quot;Space Grotesk&quot;, sans-serif;
+                    font-size: 13px;
+                    font-weight: 600;
+                    fill: #13243a;
+                  "
+                  data-en="Once Prague works"
+                  data-cs="Jakmile Praha vyjde"
+                >
+                  Once Prague works
+                </text>
+                <text
+                  x="295"
+                  y="315"
+                  text-anchor="middle"
+                  style="
+                    font-family: var(--mono);
+                    font-size: 9px;
+                    fill: #76869b;
+                  "
+                  data-en="CZ border"
+                  data-cs="hranice ČR"
+                >
+                  CZ border
+                </text>
+                <text
+                  x="80"
+                  y="300"
+                  text-anchor="middle"
+                  style="
+                    font-family: &quot;Space Grotesk&quot;, sans-serif;
+                    font-size: 12.5px;
+                    font-weight: 600;
+                    fill: #13243a;
+                  "
+                  data-en="Prague 7–8"
+                  data-cs="Praha 7–8"
+                >
+                  Prague 7–8
+                </text>
+                <text
+                  x="80"
+                  y="313"
+                  text-anchor="middle"
+                  style="
+                    font-family: var(--mono);
+                    font-size: 9px;
+                    fill: #76869b;
+                  "
+                  data-en="beachhead"
+                  data-cs="předmostí"
+                >
+                  beachhead
+                </text>
+                <text
+                  x="205"
+                  y="290"
+                  text-anchor="middle"
+                  style="
+                    font-family: &quot;Space Grotesk&quot;, sans-serif;
+                    font-size: 12.5px;
+                    font-weight: 600;
+                    fill: #13243a;
+                  "
+                  data-en="All of Prague"
+                  data-cs="Celá Praha"
+                >
+                  All of Prague
+                </text>
+                <text
+                  x="395"
+                  y="252"
+                  text-anchor="middle"
+                  style="
+                    font-family: &quot;Space Grotesk&quot;, sans-serif;
+                    font-size: 12.5px;
+                    font-weight: 600;
+                    fill: #13243a;
+                  "
+                >
+                  Bratislava
+                </text>
+                <text
+                  x="395"
+                  y="265"
+                  text-anchor="middle"
+                  style="
+                    font-family: var(--mono);
+                    font-size: 9px;
+                    fill: #76869b;
+                  "
+                  data-en="SK · first step"
+                  data-cs="SK · první krok"
+                >
+                  SK · first step
+                </text>
+                <text
+                  x="565"
+                  y="227"
+                  text-anchor="middle"
+                  style="
+                    font-family: &quot;Space Grotesk&quot;, sans-serif;
+                    font-size: 13.5px;
+                    font-weight: 600;
+                    fill: #13243a;
+                  "
+                  data-en="Warsaw"
+                  data-cs="Varšava"
+                >
+                  Warsaw
+                </text>
+                <text
+                  x="565"
+                  y="240"
+                  text-anchor="middle"
+                  style="
+                    font-family: var(--mono);
+                    font-size: 9px;
+                    fill: #76869b;
+                  "
+                  data-en="PL · biggest market"
+                  data-cs="PL · největší trh"
+                >
+                  PL · biggest market
+                </text>
+                <text
+                  x="715"
+                  y="248"
+                  text-anchor="middle"
+                  style="
+                    font-family: &quot;Space Grotesk&quot;, sans-serif;
+                    font-size: 12.5px;
+                    font-weight: 600;
+                    fill: #13243a;
+                  "
+                  data-en="Budapest"
+                  data-cs="Budapešť"
+                >
+                  Budapest
+                </text>
+                <text
+                  x="715"
+                  y="261"
+                  text-anchor="middle"
+                  style="
+                    font-family: var(--mono);
+                    font-size: 9px;
+                    fill: #76869b;
+                  "
+                >
+                  HU
+                </text>
+              </svg>
+            </div>
+          </div>
+        </section>
+
+        <!-- 11 PROVE PRAGUE -->
+        <section class="slide">
+          <div class="inner">
+            <div class="khead">
+              <span class="tick"></span
+              ><span class="kicker"
+                ><span data-en="Proof of Prague" data-cs="Důkaz Prahy"
+                  >Proof of Prague</span
+                ></span
+              ><span class="kn">11</span>
+            </div>
+            <h2
+              class="display"
+              data-en="What “Prague works” actually means."
+              data-cs="Co znamená, že Praha vyšla."
+            >
+              What "Prague works" actually means.
+            </h2>
+            <p
+              class="sub wide"
+              data-en="Four things we need to crack in Prague and repeat in the next cities."
+              data-cs="Čtyři věci, které potřebujeme vyřešit v Praze a opakovat v dalších městech."
+            >
+              Four things to crack in Prague and repeat in the next cities.
+            </p>
+            <ul class="gates">
+              <li>
+                <span class="gn">01</span>
+                <div class="gmid">
+                  <div
+                    class="gt"
+                    data-en="Liquidity / fill rate"
+                    data-cs="Likvidita / fill rate"
+                  >
+                    Liquidity / fill rate
+                  </div>
+                </div>
+                <div
+                  class="gv"
+                  data-en="≥75% of posts get ≥3 offers <12h"
+                  data-cs="≥75 % poptávek má ≥3 nabídky do 12 h"
+                >
+                  ≥75% get ≥3 offers <12h
+                </div>
+              </li>
+              <li>
+                <span class="gn">02</span>
+                <div class="gmid">
+                  <div
+                    class="gt"
+                    data-en="Supply retention"
+                    data-cs="Retence řemeslníků"
+                  >
+                    Supply retention
+                  </div>
+                </div>
+                <div
+                  class="gv"
+                  data-en="≥65% of pros active at month 6"
+                  data-cs="≥65 % řemeslníků aktivních v 6. měsíci"
+                >
+                  ≥65% active at month 6
+                </div>
+              </li>
+              <li>
+                <span class="gn">03</span>
+                <div class="gmid">
+                  <div
+                    class="gt"
+                    data-en="Payment capture (anti-leakage)"
+                    data-cs="Zachycení platby (anti-leakage)"
+                  >
+                    Payment capture (anti-leakage)
+                  </div>
+                </div>
+                <div
+                  class="gv"
+                  data-en="≥75% of matched jobs paid in-app at 15% — and rising"
+                  data-cs="≥75 % spárovaných zakázek placeno v app na 15 % — a roste"
+                >
+                  ≥75% of matched jobs paid in-app — and rising
+                </div>
+              </li>
+              <li>
+                <span class="gn">04</span>
+                <div class="gmid">
+                  <div
+                    class="gt"
+                    data-en="Growth from referrals"
+                    data-cs="Růst z doporučení"
+                  >
+                    Growth from referrals
+                  </div>
+                </div>
+                <div
+                  class="gv"
+                  data-en="≥50% of demand from referrals · payback <6 mo"
+                  data-cs="≥50 % poptávky z doporučení · návratnost do 6 měs."
+                >
+                  ≥50% from referrals · payback <6mo
+                </div>
+              </li>
+            </ul>
+            <p class="note">
+              <span
+                data-en="Targets are our recommended starting bar — to be tightened with live data. Meeting them is what graduates Prague from “a bet” to “a playbook”."
+                data-cs="Hodnoty jsou naše doporučená výchozí laťka — doladíme je s reálnými daty. Jejich splnění je to, co Prahu posune z „sázky“ na „playbook“."
+                >Recommended starting bar — to be tightened with live
+                data.</span
+              >
+            </p>
+          </div>
+        </section>
+
+        <!-- 12 PROJECTIONS -->
+        <section class="slide">
+          <div class="inner">
+            <div class="khead">
+              <span class="tick"></span
+              ><span class="kicker"
+                ><span data-en="Projections" data-cs="Projekce"
+                  >Projections</span
+                ></span
+              ><span class="kn">12</span>
+            </div>
+            <h2
+              class="display"
+              data-en="A small share of a big market is real revenue."
+              data-cs="Malý podíl velkého trhu = reálné tržby."
+            >
+              A small share of a big market is real revenue.
+            </h2>
+            <div class="card ambertop callout">
+              <div class="lab">
+                <span data-en="In short" data-cs="Ve zkratce">In short</span>
+              </div>
+              <p
+                data-en="From €5M to €112M GMV in five years — about 5% of the Czech market (under 1% of Central Europe) and ~€8.4M revenue at a 7.5% blended take rate."
+                data-cs="Cesta na 112 mil. € GMV za pět let — zhruba 5 % českého trhu (pod 1 % střední Evropy) a ~8,4 mil. € tržeb při blended take rate 7,5 %."
+              >
+                €5M → €112M GMV in five years; ~€8.4M revenue at a 7.5% blended
+                take rate.
+              </p>
+            </div>
+            <div class="ramp2">
+              <div class="rcol lbl">
+                <div class="barcell"></div>
+                <div class="v" data-en="Year" data-cs="Rok">Year</div>
+                <div class="v" data-en="GMV (€ m)" data-cs="GMV (mil. €)">
+                  GMV (€ m)
+                </div>
+                <div class="v" data-en="% of CZ market" data-cs="% čes. trhu">
+                  % of CZ market
+                </div>
+                <div class="v" data-en="% of CEE market" data-cs="% trhu CEE">
+                  % of CEE market
+                </div>
+                <div class="v" data-en="Take rate" data-cs="Take rate">
+                  Take rate
+                </div>
+                <div class="v" data-en="Revenue (€ m)" data-cs="Tržby (mil. €)">
+                  Revenue (€ m)
+                </div>
+              </div>
+              <div class="rcol">
+                <div class="barcell">
+                  <span class="bar" style="height: 4px"></span>
+                </div>
+                <div class="v">Y1</div>
+                <div class="v gmvc">5</div>
+                <div class="v gmvpct" data-en="~0.2%" data-cs="~0,2 %">
+                  ~0.2%
+                </div>
+                <div class="v gmvpct" data-en="~0.04%" data-cs="~0,04 %">
+                  ~0.04%
+                </div>
+                <div class="v trc" data-en="1%" data-cs="1 %">1%</div>
+                <div class="v revc" data-en="0.05" data-cs="0,05">0.05</div>
+              </div>
+              <div class="rcol">
+                <div class="barcell">
+                  <span class="bar" style="height: 14px"></span>
+                </div>
+                <div class="v">Y2</div>
+                <div class="v gmvc">15</div>
+                <div class="v gmvpct" data-en="~0.7%" data-cs="~0,7 %">
+                  ~0.7%
+                </div>
+                <div class="v gmvpct" data-en="~0.12%" data-cs="~0,12 %">
+                  ~0.12%
+                </div>
+                <div class="v trc" data-en="5%" data-cs="5 %">5%</div>
+                <div class="v revc" data-en="0.75" data-cs="0,75">0.75</div>
+              </div>
+              <div class="rcol">
+                <div class="barcell">
+                  <span class="bar" style="height: 33px"></span>
+                </div>
+                <div class="v">Y3</div>
+                <div class="v gmvc">37</div>
+                <div class="v gmvpct" data-en="~1.7%" data-cs="~1,7 %">
+                  ~1.7%
+                </div>
+                <div class="v gmvpct" data-en="~0.28%" data-cs="~0,28 %">
+                  ~0.28%
+                </div>
+                <div class="v trc" data-en="7.5%" data-cs="7,5 %">7.5%</div>
+                <div class="v revc" data-en="2.8" data-cs="2,8">2.8</div>
+              </div>
+              <div class="rcol">
+                <div class="barcell">
+                  <span class="bar" style="height: 61px"></span>
+                </div>
+                <div class="v">Y4</div>
+                <div class="v gmvc">68</div>
+                <div class="v gmvpct" data-en="~3%" data-cs="~3 %">~3%</div>
+                <div class="v gmvpct" data-en="~0.52%" data-cs="~0,52 %">
+                  ~0.52%
+                </div>
+                <div class="v trc" data-en="7.5%" data-cs="7,5 %">7.5%</div>
+                <div class="v revc" data-en="5.1" data-cs="5,1">5.1</div>
+              </div>
+              <div class="rcol">
+                <div class="barcell">
+                  <span class="bar" style="height: 100px"></span>
+                </div>
+                <div class="v">Y5</div>
+                <div class="v gmvc">112</div>
+                <div class="v gmvpct" data-en="~5%" data-cs="~5 %">~5%</div>
+                <div class="v gmvpct" data-en="~0.86%" data-cs="~0,86 %">
+                  ~0.86%
+                </div>
+                <div class="v trc" data-en="7.5%" data-cs="7,5 %">7.5%</div>
+                <div class="v revc" data-en="8.4" data-cs="8,4">8.4</div>
+              </div>
+            </div>
+            <br />
+            <br />
+            <p
+              class="note"
+              data-en="GMV and revenue rows are in millions of EUR; revenue = take rate × GMV. In each city we want to reach 7.5% from the customer + 7.5% from the pro (15% total) as fast as possible. The take rate shown is a blended average, though — each new city has to win traction first, and the take rate is what we trade for it."
+              data-cs="Řádky GMV i tržby jsou v milionech €; tržby = take rate × GMV. V každém městě se chceme co nejdříve dostat na 7,5 % od zákazníka + 7,5 % od řemeslníka (15 % celkem). Uvedený take rate je ale průměr — v každém novém městě musíme zpočátku získat trakci a obětí je právě take rate."
+            >
+              Revenue = take rate × GMV; the rate shown is a blended average
+              across cities.
+            </p>
+            <p class="note">
+              <span
+                data-en="Illustrative scenario. % of CZ = share of the ~€2.2bn Czech SOM; % of CEE = of the ~€13bn Central Europe SAM."
+                data-cs="Ilustrativní scénář. % čes. trhu = podíl na ~2,2 mld. € českém SOM; % trhu CEE = na ~13 mld. € středoevropském SAM."
+                >Illustrative scenario.</span
+              >
+            </p>
+          </div>
+        </section>
+
+        <!-- 13 COMPARABLES -->
+        <section class="slide">
+          <div class="inner">
+            <div class="khead">
+              <span class="tick"></span
+              ><span class="kicker"
+                ><span data-en="Comparables" data-cs="Srovnatelné firmy"
+                  >Comparables</span
+                ></span
+              ><span class="kn">13</span>
+            </div>
+            <h2
+              class="display"
+              data-en="Competitor valuations and exits = a proven model"
+              data-cs="Konkurenční valuace a exity = ověřený model"
+            >
+              Competitor valuations and exits = a proven model
+            </h2>
+            <div class="tiles t3">
+              <div class="tile">
+                <div class="v" data-en="$3.2bn" data-cs="3,2 mld. $">
+                  $3.2bn
+                </div>
+                <div class="l">
+                  Thumbtack
+                  <span data-en="valuation (2021)" data-cs="valuace (2021)"
+                    >valuation (2021)</span
+                  >
+                </div>
+              </div>
+              <div class="tile">
+                <div class="v">IKEA</div>
+                <div class="l">
+                  <span
+                    data-en="acquired TaskRabbit (2017)"
+                    data-cs="koupila TaskRabbit (2017)"
+                    >acquired TaskRabbit (2017)</span
+                  >
+                </div>
+              </div>
+              <div class="tile">
+                <div class="v am" data-en="£4.08bn" data-cs="4,08 mld. £">
+                  £4.08bn
+                </div>
+                <div class="l">
+                  <span
+                    data-en="HomeServe → Brookfield (2023)"
+                    data-cs="HomeServe → Brookfield (2023)"
+                    >HomeServe → Brookfield (2023)</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 14 THE ASK -->
+        <section class="slide">
+          <div class="inner">
+            <div class="khead">
+              <span class="tick"></span
+              ><span class="kicker"
+                ><span data-en="The ask" data-cs="Investice"
+                  >The ask</span
+                ></span
+              ><span class="kn">14</span>
+            </div>
+            <h2
+              class="display"
+              data-en="We're raising €500k."
+              data-cs="Sháníme 500k €."
+            >
+              We're raising €500k.
+            </h2>
+            <p
+              class="sub wide"
+              data-en="Via a post-money SAFE with a €2.5M cap and a 15% discount. This buys 18 months of runway to launch Prague, tune low-CAC local marketing and build a replicable manual for expanding to the next cities."
+              data-cs="Přes post-money SAFE s capem 2,5 mil. € a 15% slevou. Tyto peníze nám zajistí 18 měsíců runwaye, během kterých rozjedeme Prahu, odladíme lokální marketing s nízkým CAC a vytvoříme replikovatelný manuál pro expanzi do dalších měst."
+            >
+              Post-money SAFE · €2.5M cap · 15% discount · 18 months of runway.
+            </p>
+          </div>
+        </section>
+
+        <!-- 15 VISION -->
+        <section class="slide">
+          <div class="inner">
+            <div class="khead">
+              <span class="tick"></span
+              ><span class="kicker"
+                ><span data-en="Vision" data-cs="Vize">Vision</span></span
+              ><span class="kn">15</span>
+            </div>
+            <div class="cover-wm vislogo">
+              <svg
+                class="logo logo-cover"
+                aria-label="Skildo"
+                role="img"
+                viewBox="0 0 732 300"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M59.4282 72.48C59.3435 72.7623 59.3153 80.6115 59.4 89.9853L59.5694 106.982H51.0443L51.0161 95.6604C50.9879 89.4206 50.9032 83.0961 50.7903 81.5997L50.5927 78.8892L48.5038 79.7362C47.3746 80.188 45.2575 81.2327 43.8178 82.0515C29.0261 90.5782 19.1461 105.542 17.6782 121.749L17.4806 123.895H15.3634C11.609 123.895 10 125.278 10 128.497C10 130.643 10.5363 131.631 12.2583 132.648C13.2463 133.24 13.7826 133.24 70.0139 133.24H126.782L127.826 132.591C129.266 131.688 130 130.276 130 128.469C130.028 125.363 128.278 123.895 124.636 123.895H122.491V122.031C122.491 115.622 119.16 105.881 114.559 98.8509C109.562 91.2276 101.63 84.0279 94.601 80.7809C92.3145 79.7362 89.9151 78.9739 89.661 79.228C89.6046 79.3127 89.407 85.496 89.2658 92.9782C89.1247 100.432 89.0118 106.644 88.9835 106.785C88.9835 106.898 87.0922 106.982 84.8057 106.926L80.6279 106.841L80.6561 102.55C80.6561 100.178 80.769 92.6958 80.8819 85.8913C81.0513 74.6258 81.0231 73.4682 80.5714 72.7623L80.0916 72H69.8446C60.7267 72 59.5976 72.0565 59.4282 72.48Z"
+                  fill="url(#p0_vis)"
+                />
+                <path
+                  d="M21.9689 144.732C20.3881 145.805 20.1058 147.047 20.501 151.423C20.9245 156.28 21.7431 160.148 23.3521 165.061C24.8482 169.635 28.3768 177.088 31.3126 181.86C37.4382 191.827 53.3873 211.647 66.316 225.369C69.1389 228.334 69.9293 228.588 71.4536 227.148C72.6957 225.962 86.1325 210.405 92.4274 202.895C106.852 185.615 111.933 177.484 116.224 164.609C118.567 157.607 119.894 148.289 118.821 146.228C117.89 144.421 117.466 144.337 105.469 144.337H94.6293L92.7097 146.087L92.4839 150.774C92.2863 155.913 91.7782 158.143 90.1691 161.447C86.2736 169.38 77.5227 174.378 68.3767 173.898C64.6505 173.7 62.5616 173.164 59.2024 171.498C51.1008 167.517 46.923 160.204 46.8947 150.04C46.8947 147.132 46.7818 146.256 46.3866 145.635C45.3986 144.139 44.8058 144.054 33.4579 144.054C23.0134 144.054 22.9569 144.054 21.9689 144.732Z"
+                  fill="url(#p1_vis)"
+                />
+                <path
+                  d="M229.6 221.4C220.4 221.4 212.133 219.8 204.8 216.6C197.6 213.267 191.933 208.733 187.8 203C183.667 197.133 181.533 190.4 181.4 182.8H200.8C201.467 189.333 204.133 194.867 208.8 199.4C213.6 203.8 220.533 206 229.6 206C238.267 206 245.067 203.867 250 199.6C255.067 195.2 257.6 189.6 257.6 182.8C257.6 177.467 256.133 173.133 253.2 169.8C250.267 166.467 246.6 163.933 242.2 162.2C237.8 160.467 231.867 158.6 224.4 156.6C215.2 154.2 207.8 151.8 202.2 149.4C196.733 147 192 143.267 188 138.2C184.133 133 182.2 126.067 182.2 117.4C182.2 109.8 184.133 103.067 188 97.2C191.867 91.3333 197.267 86.8 204.2 83.6C211.267 80.4 219.333 78.8 228.4 78.8C241.467 78.8 252.133 82.0667 260.4 88.6C268.8 95.1333 273.533 103.8 274.6 114.6H254.6C253.933 109.267 251.133 104.6 246.2 100.6C241.267 96.4667 234.733 94.4 226.6 94.4C219 94.4 212.8 96.4 208 100.4C203.2 104.267 200.8 109.733 200.8 116.8C200.8 121.867 202.2 126 205 129.2C207.933 132.4 211.467 134.867 215.6 136.6C219.867 138.2 225.8 140.067 233.4 142.2C242.6 144.733 250 147.267 255.6 149.8C261.2 152.2 266 156 270 161.2C274 166.267 276 173.2 276 182C276 188.8 274.2 195.2 270.6 201.2C267 207.2 261.667 212.067 254.6 215.8C247.533 219.533 239.2 221.4 229.6 221.4ZM357.983 220L314.983 171.6V220H296.783V72H314.983V159L357.183 110.4H382.583L330.983 165L382.783 220H357.983ZM403.113 92.6C399.646 92.6 396.713 91.4 394.313 89C391.913 86.6 390.713 83.6667 390.713 80.2C390.713 76.7333 391.913 73.8 394.313 71.4C396.713 69 399.646 67.8 403.113 67.8C406.446 67.8 409.246 69 411.513 71.4C413.913 73.8 415.113 76.7333 415.113 80.2C415.113 83.6667 413.913 86.6 411.513 89C409.246 91.4 406.446 92.6 403.113 92.6ZM411.913 110.4V220H393.713V110.4H411.913ZM455.131 72V220H436.931V72H455.131ZM473.35 164.8C473.35 153.6 475.617 143.8 480.15 135.4C484.683 126.867 490.883 120.267 498.75 115.6C506.75 110.933 515.683 108.6 525.55 108.6C534.083 108.6 542.017 110.6 549.35 114.6C556.683 118.467 562.283 123.6 566.15 130V72H584.55V220H566.15V199.4C562.55 205.933 557.217 211.333 550.15 215.6C543.083 219.733 534.817 221.8 525.35 221.8C515.617 221.8 506.75 219.4 498.75 214.6C490.883 209.8 484.683 203.067 480.15 194.4C475.617 185.733 473.35 175.867 473.35 164.8ZM566.15 165C566.15 156.733 564.483 149.533 561.15 143.4C557.817 137.267 553.283 132.6 547.55 129.4C541.95 126.067 535.75 124.4 528.95 124.4C522.15 124.4 515.95 126 510.35 129.2C504.75 132.4 500.283 137.067 496.95 143.2C493.617 149.333 491.95 156.533 491.95 164.8C491.95 173.2 493.617 180.533 496.95 186.8C500.283 192.933 504.75 197.667 510.35 201C515.95 204.2 522.15 205.8 528.95 205.8C535.75 205.8 541.95 204.2 547.55 201C553.283 197.667 557.817 192.933 561.15 186.8C564.483 180.533 566.15 173.267 566.15 165ZM657.106 221.8C646.84 221.8 637.506 219.467 629.106 214.8C620.84 210.133 614.306 203.533 609.506 195C604.84 186.333 602.506 176.333 602.506 165C602.506 153.8 604.906 143.933 609.706 135.4C614.64 126.733 621.306 120.133 629.706 115.6C638.106 110.933 647.506 108.6 657.906 108.6C668.306 108.6 677.706 110.933 686.106 115.6C694.506 120.133 701.106 126.667 705.906 135.2C710.84 143.733 713.306 153.667 713.306 165C713.306 176.333 710.773 186.333 705.706 195C700.773 203.533 694.04 210.133 685.506 214.8C676.973 219.467 667.506 221.8 657.106 221.8ZM657.106 205.8C663.64 205.8 669.773 204.267 675.506 201.2C681.24 198.133 685.84 193.533 689.306 187.4C692.906 181.267 694.706 173.8 694.706 165C694.706 156.2 692.973 148.733 689.506 142.6C686.04 136.467 681.506 131.933 675.906 129C670.306 125.933 664.24 124.4 657.706 124.4C651.04 124.4 644.906 125.933 639.306 129C633.84 131.933 629.44 136.467 626.106 142.6C622.773 148.733 621.106 156.2 621.106 165C621.106 173.933 622.706 181.467 625.906 187.6C629.24 193.733 633.64 198.333 639.106 201.4C644.573 204.333 650.573 205.8 657.106 205.8Z"
+                  fill="black"
+                />
+                <defs>
+                  <linearGradient
+                    id="p0_vis"
+                    x1="130"
+                    y1="72"
+                    x2="-11.8453"
+                    y2="204.677"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop stop-color="#BF6BFF" />
+                    <stop offset="0.5" stop-color="#7F5AF5" />
+                    <stop offset="1" stop-color="#667EEA" />
+                  </linearGradient>
+                  <linearGradient
+                    id="p1_vis"
+                    x1="130"
+                    y1="72"
+                    x2="-11.8453"
+                    y2="204.677"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop stop-color="#BF6BFF" />
+                    <stop offset="0.5" stop-color="#7F5AF5" />
+                    <stop offset="1" stop-color="#667EEA" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <h2
+              class="display"
+              data-en="#1 for home services — Czechia first, then Central Europe."
+              data-cs="#1 pro domácí služby — nejdřív Česko, pak střední Evropa."
+            >
+              #1 for home services.
+            </h2>
+            <p
+              class="vis-close"
+              data-en="We turn “who do I even call?” into “photo → done.” Come build it with us."
+              data-cs="Měníme „komu vůbec zavolat?“ na „fotka → hotovo“. Pojďte to postavit s námi."
+            >
+              We turn “who do I even call?” into “photo → done.”
+            </p>
+            <div class="cover-foot">
+              <span data-en="Skildo · skildo.cz" data-cs="Skildo · skildo.cz"
+                >Skildo · skildo.cz</span
+              >
+            </div>
+          </div>
+        </section>
+
+        <!-- 16 SOURCES -->
+        <section class="slide">
+          <div class="inner">
+            <div class="khead">
+              <span class="tick"></span
+              ><span class="kicker"
+                ><span data-en="Sources" data-cs="Zdroje">Sources</span></span
+              ><span class="kn">16</span>
+            </div>
+            <h2
+              class="display"
+              data-en="Where the numbers come from."
+              data-cs="Odkud čísla pocházejí."
+            >
+              Where the numbers come from.
+            </h2>
+            <ul class="srclist">
+              <li>
+                <span
+                  class="st"
+                  data-en="~100k missing tradespeople (CZ)"
+                  data-cs="~100 tis. chybějících řemeslníků (ČR)"
+                  >~100k missing tradespeople (CZ)</span
+                ><span class="su">AMSP ČR, via Euro.cz / e15.cz (2025)</span>
+              </li>
+              <li>
+                <span
+                  class="st"
+                  data-en="European home-services TAM ~€100bn; ~7.7%/yr"
+                  data-cs="TAM evropského trhu ~100 mld. €; ~7,7 %/rok"
+                  >European home-services TAM ~€100bn; ~7.7%/yr</span
+                ><span class="su"
+                  >Expert Market Research, Europe Home Services Market
+                  (2024–2034)</span
+                >
+              </li>
+              <li>
+                <span
+                  class="st"
+                  data-en="~4.6M Czech households; ~€420–580/yr home spend"
+                  data-cs="~4,6 mil. českých domácností; ~420–580 €/rok"
+                  >~4.6M Czech households; ~€420–580/yr home spend</span
+                ><span class="su"
+                  >ČSÚ — Spotřební výdaje domácností / Finanční situace
+                  domácností (2024)</span
+                >
+              </li>
+              <li>
+                <span class="st">Adam — 22%</span
+                ><span class="su">Founders' statement, via Euro.cz (2023)</span>
+              </li>
+              <li>
+                <span class="st">SuperSoused — 15%</span
+                ><span class="su">Lupa.cz / CzechCrunch / Finlord</span>
+              </li>
+              <li>
+                <span class="st">TaskRabbit — 15% service fee</span
+                ><span class="su">support.taskrabbit.com (2025)</span>
+              </li>
+              <li>
+                <span class="st">Thumbtack — $3.2bn (2021)</span
+                ><span class="su"
+                  >Thumbtack press / TechCrunch / PitchBook</span
+                >
+              </li>
+              <li>
+                <span class="st">HomeServe → Brookfield — £4.08bn (2023)</span
+                ><span class="su"
+                  >Wikipedia / MarketScreener / Insider Media</span
+                >
+              </li>
+              <li>
+                <span class="st">IKEA → TaskRabbit (2017)</span
+                ><span class="su">TechCrunch / Taskrabbit</span>
+              </li>
+              <li>
+                <span
+                  class="st"
+                  data-en="Armut × ProntoPro merger (2022)"
+                  data-cs="fúze Armut × ProntoPro (2022)"
+                  >Armut × ProntoPro merger (2022)</span
+                ><span class="su">BusinessWire / Tech.eu / Dealroom</span>
+              </li>
+              <li>
+                <span
+                  class="st"
+                  data-en="EU instant payments mandatory Oct 2025; CZ since 2018"
+                  data-cs="Okamžité platby EU povinné od 10/2025; ČR od 2018"
+                  >EU instant payments mandatory Oct 2025; CZ since 2018</span
+                ><span class="su"
+                  >EU Instant Payments Reg. (EU) 2024/886, ECB; ČNB</span
+                >
+              </li>
+              <li>
+                <span
+                  class="st"
+                  data-en="Agentic-AI boom & accelerating adoption"
+                  data-cs="Boom agentické AI a zrychlující adopce"
+                  >Agentic-AI boom & accelerating adoption</span
+                ><span class="su">Gartner; Salesforce (2025–26)</span>
+              </li>
+            </ul>
+            <p class="note">
+              <span
+                data-en="Market figures are third-party estimates; SAM (Central Europe), the online-demand growth rate (~16%/yr) and all forward projections are Skildo's own estimates, triangulated from the sources above and clearly flagged as illustrative where shown."
+                data-cs="Tržní čísla jsou odhady třetích stran; SAM (střední Evropa), tempo růstu online poptávky (~16 %/rok) a všechny výhledové projekce jsou vlastní odhady Skildo, triangulované z výše uvedených zdrojů a tam, kde jsou uvedené, jasně označené jako ilustrativní."
+                >Market figures are third-party estimates; SAM, the ~16%/yr
+                online rate and all projections are Skildo's own
+                estimates.</span
+              >
+            </p>
+          </div>
+        </section>
+      </main>
+
+      <footer class="nav">
+        <button class="arrow" id="prev" aria-label="Previous slide">
+          &#8249;
+        </button>
+        <div id="dots"></div>
+        <button class="arrow" id="next" aria-label="Next slide">&#8250;</button>
+        <span id="counter">01 / 16</span>
+      </footer>
+    </div>
+
+    <script>
+      var slides = [].slice.call(document.querySelectorAll(".slide"));
+      var cur = 0;
+      var counter = document.getElementById("counter");
+      var dotsWrap = document.getElementById("dots");
+      var prog = document.getElementById("prog");
+      function pad(n) {
+        return (n < 10 ? "0" : "") + n;
+      }
+      slides.forEach(function (s, i) {
+        var d = document.createElement("button");
+        d.className = "dot";
+        d.setAttribute("aria-label", "Slide " + (i + 1));
+        d.addEventListener("click", function () {
+          show(i);
+        });
+        dotsWrap.appendChild(d);
+      });
+      var dots = [].slice.call(dotsWrap.children);
+      function show(i) {
+        i = Math.max(0, Math.min(slides.length - 1, i));
+        slides[cur].classList.remove("active");
+        dots[cur].classList.remove("on");
+        cur = i;
+        slides[cur].classList.add("active");
+        dots[cur].classList.add("on");
+        counter.textContent = pad(cur + 1) + " / " + pad(slides.length);
+        prog.style.width = ((cur + 1) / slides.length) * 100 + "%";
+        window.scrollTo(0, 0);
+      }
+      document.getElementById("prev").addEventListener("click", function () {
+        show(cur - 1);
+      });
+      document.getElementById("next").addEventListener("click", function () {
+        show(cur + 1);
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") {
+          show(cur + 1);
+          e.preventDefault();
+        } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
+          show(cur - 1);
+          e.preventDefault();
+        }
+      });
+
+      /* language */
+      var lang = "en";
+      function setLang(l) {
+        lang = l;
+        document.querySelectorAll("[data-en]").forEach(function (el) {
+          var v = el.getAttribute("data-" + l);
+          if (v !== null) el.textContent = v;
+        });
+        document.getElementById("btn-en").classList.toggle("on", l === "en");
+        document.getElementById("btn-cs").classList.toggle("on", l === "cs");
+        document.documentElement.lang = l;
+      }
+      document.getElementById("btn-en").addEventListener("click", function () {
+        setLang("en");
+      });
+      document.getElementById("btn-cs").addEventListener("click", function () {
+        setLang("cs");
+      });
+
+      show(0);
+      setLang("cs");
+    </script>
+  </body>
+</html>
